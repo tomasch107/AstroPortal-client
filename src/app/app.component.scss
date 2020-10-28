@@ -1,0 +1,25 @@
+.banner {
+    background: url(../assets/images/andromeda.jpg) no-repeat center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.push-spaces {
+    height: 550px;
+}
+
+.text {
+    padding-top: 10em;
+}
+
+.jumbotron {
+    border-radius: 0%;
+}
+
+.big-icon {
+    height: 30px;
+    width: 30px;
+    stroke-width: 1px;
+}
