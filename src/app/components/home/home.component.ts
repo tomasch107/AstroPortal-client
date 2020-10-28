@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/_services/user.service';
-import {MatDialog} from '@angular/material/dialog';
 import { SignUpSignInComponent } from '../sign-up-sign-in/sign-up-sign-in.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
 
   content: string;
 
-  constructor(private userService: UserService, private dialog: MatDialog) { }
+  constructor(private userService: UserService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.userService.getPublicContent().subscribe(
@@ -24,7 +24,10 @@ export class HomeComponent implements OnInit {
     );
   }
   onGetStartedClick() {
-    let dialogRef = this.dialog.open(SignUpSignInComponent);
+    const dialogRef = this.dialog.open(SignUpSignInComponent, {
+      panelClass: 'custom-dialog'
+    });
+
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });

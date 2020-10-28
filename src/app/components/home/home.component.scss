@@ -62,3 +62,8 @@ a.button-start:hover {
     background-color: $button-color;
     background-position: -100% 100%;
 }
+
+::ng-deep .custom-dialog>mat-dialog-container {
+    background-color: transparent;
+    box-shadow: 0 0 black;
+}
