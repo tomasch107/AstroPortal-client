@@ -13,7 +13,6 @@ export class SignUpSignInComponent implements OnInit {
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
-
   formSignUp: any = {};
   isSuccessful = false;
   isSignUpFailed = false;
@@ -24,6 +23,14 @@ export class SignUpSignInComponent implements OnInit {
   onSignUpClick(): void {
     const container = document.getElementById('container-sign');
     container.classList.add('right-panel-active');
+  }
+  onSignInMobileClick(): void {
+    const container = document.getElementById('container-sign');
+    container.classList.remove('right-panel-mobile-active');
+  }
+  onSignUpMobileClick(): void {
+    const container = document.getElementById('container-sign');
+    container.classList.add('right-panel-mobile-active');
   }
   onSignInClick(): void {
     const container = document.getElementById('container-sign');

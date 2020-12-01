@@ -23,3 +23,8 @@
     width: 30px;
     stroke-width: 1px;
 }
+
+::ng-deep .custom-dialog>mat-dialog-container {
+    background-color: transparent;
+    box-shadow: 0 0 black;
+}
