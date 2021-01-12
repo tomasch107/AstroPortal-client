@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TokenStorageService } from 'src/_services/token-storage.service';
 import { SignUpSignInComponent } from './components/sign-up-sign-in/sign-up-sign-in.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -14,13 +15,24 @@ export class AppComponent implements OnInit {
   showAdminBoard = false;
   showModeratorBoard = false;
   username: string;
-
+  lang: string;
   constructor(
     private tokenStorageService: TokenStorageService,
-    public dialog: MatDialog
-  ) {}
+    public dialog: MatDialog,
+    public translate: TranslateService
+  ) {
+    translate.addLangs(['en', 'pl']);
+    translate.setDefaultLang('en');
+  }
 
   ngOnInit(): void {
+    this.lang = localStorage.getItem('language');
+    if(this.lang == null)
+    {
+      this.lang = this.translate.getDefaultLang();
+    }
+    this.translate.use(this.lang);
+
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
@@ -55,5 +67,9 @@ export class AppComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+  switchLang(lang: string) {
+    this.translate.use(lang);
+    localStorage.setItem('language', lang);
   }
 }

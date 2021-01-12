@@ -1,0 +1,17 @@
+{
+    "Sitetitle": "Angular Strona wielojęzykowa",
+    "Name": "Imię",
+    "NameError": "Imię błąd",
+    "Email": "Email adres",
+    "PhoneNo": "Numer telefonu",
+    "Password": "Hasło",
+    "Bio": "Bio",
+    "TermsConditions": "Zgadzam się na warunki",
+    "Submit": "Zatwierdź",
+    "Save": "Zapisz",
+    "Lastname": "Nazwisko",
+    "Nickname": "Nazwa profilu",
+    "Country": "Kraj",
+    "Required": "To pole jest wymagane"
+
+}

@@ -17,9 +17,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { SignUpSignInComponent } from './components/sign-up-sign-in/sign-up-sign-in.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient} from '@angular/common/http';
+import { MaterialModule } from './material/material.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,10 +42,20 @@ import { MatIconModule } from '@angular/material/icon';
     HttpClientModule,
     IconsModule,
     BrowserAnimationsModule,
-    MatDialogModule,
-    MatIconModule
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpTranslateLoader,
+        deps: [HttpClient]
+      }
+    }),
+    ReactiveFormsModule,
+    MaterialModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+export function httpTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

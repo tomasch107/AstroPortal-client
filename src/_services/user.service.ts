@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AppSettings } from '../app/helpers/app-settings';
+import { UserProfile } from '../app/model/user-profile';
 
-const API_URL = 'http://localhost:8080/api/';
+const API_URL = AppSettings.API_ENDPOINT
 
 @Injectable({
   providedIn: 'root'
@@ -30,4 +32,12 @@ export class UserService {
   getUsers(): Observable<any> {
     return this.http.get(API_URL + 'admin/getUsers', { responseType: 'text' });
   }
-}
+
+  getUserData(): Observable<UserProfile> {
+    return this.http.get<UserProfile>(API_URL + 'user/getUserData');
+  }
+
+  saveUserData(profileData: UserProfile): Observable<any> {
+    return this.http.post(API_URL + 'user/saveUserData', profileData);
+  }}
+
