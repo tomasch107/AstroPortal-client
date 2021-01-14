@@ -3,7 +3,7 @@ import { TokenStorageService } from 'src/_services/token-storage.service';
 import { UserService } from '../../../_services/user.service';
 import { UserProfile } from '../../model/user-profile';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { MessageService } from '../../../_services/error-service.service';
 
 @Component({
   selector: 'app-profile',
@@ -21,7 +21,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private token: TokenStorageService,
     private userService: UserService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
@@ -51,7 +52,12 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit(post) {
-    console.log(post);
-    this.userService.saveUserData(post).subscribe();
+    this.userService.saveUserData(post).subscribe( data =>{
+
+    },
+    err =>{
+      console.log(err)
+      this.messageService.showErrorWindow(err.error);
+    });
   }
 }

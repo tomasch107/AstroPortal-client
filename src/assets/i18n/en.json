@@ -12,5 +12,6 @@
     "Lastname": "Last name",
     "Nickname": "Profile Name",
     "Country": "Country",
-    "Required": "This is required"
+    "Required": "This is required",
+    "Error": "Error"
 }

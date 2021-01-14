@@ -1,4 +1,4 @@
-<div class="container" *ngIf="!post; else forminfo" novalidate>
+<div class="container" *ngIf="!post" novalidate>
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
         <div class="row">
             <div class="col-md">
@@ -6,7 +6,7 @@
             </div>
             <div class="col-md">
                 <mat-form-field class="form-element">
-                    <textarea matInput placeholder="{{'Nickname' | translate}}" formControlName="nickname"></textarea>
+                    <input matInput placeholder="{{'Nickname' | translate}}" formControlName="nickname">
                     <mat-error *ngIf="!formGroup.controls['nickname'].valid && formGroup.controls['nickname'].touched">
                         {{'Required' | translate}}
                     </mat-error>
@@ -19,14 +19,14 @@
                 </mat-form-field>
 
                 <mat-form-field class="form-element">
-                    <textarea matInput placeholder="{{'Lastname' | translate}}" formControlName="lastName"></textarea>
+                    <input matInput placeholder="{{'Lastname' | translate}}" formControlName="lastName">
                     <mat-error *ngIf="!formGroup.controls['lastName'].valid && formGroup.controls['lastName'].touched">
                         {{'Required' | translate}}
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="form-element">
-                    <textarea matInput placeholder="{{'Country' | translate}}" formControlName="country"></textarea>
+                    <input matInput placeholder="{{'Country' | translate}}" formControlName="country">
                     <mat-error *ngIf="!formGroup.controls['country'].valid && formGroup.controls['country'].touched">
                         {{'Required' | translate}}
                     </mat-error>
@@ -38,12 +38,6 @@
         </div>
     </form>
 </div>
-
-<ng-template #forminfo>
-    <div class="container">
-        {{ post | json }}
-    </div>
-</ng-template>
 
 <ng-template #loggedOut>
     Please login.

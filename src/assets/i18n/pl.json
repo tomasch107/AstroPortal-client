@@ -12,6 +12,7 @@
     "Lastname": "Nazwisko",
     "Nickname": "Nazwa profilu",
     "Country": "Kraj",
-    "Required": "To pole jest wymagane"
+    "Required": "To pole jest wymagane",
+    "Error": "Błąd"
 
 }

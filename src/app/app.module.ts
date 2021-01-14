@@ -22,6 +22,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient} from '@angular/common/http';
 import { MaterialModule } from './material/material.module';
+import { ErrorWindowComponent } from './components/error-window/error-window.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { MaterialModule } from './material/material.module';
     BoardModeratorComponent,
     BoardUserComponent,
     ManageUsersComponent,
-    SignUpSignInComponent
+    SignUpSignInComponent,
+    ErrorWindowComponent
   ],
   imports: [
     BrowserModule,
