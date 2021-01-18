@@ -23,6 +23,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient} from '@angular/common/http';
 import { MaterialModule } from './material/material.module';
 import { ErrorWindowComponent } from './components/error-window/error-window.component';
+import { UploadFilesComponent } from './components/components/upload-files/upload-files.component';
+import { UploadProfilePictureComponent } from './components/upload-profile-picture/upload-profile-picture.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +39,9 @@ import { ErrorWindowComponent } from './components/error-window/error-window.com
     BoardUserComponent,
     ManageUsersComponent,
     SignUpSignInComponent,
-    ErrorWindowComponent
+    ErrorWindowComponent,
+    UploadFilesComponent,
+    UploadProfilePictureComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +58,8 @@ import { ErrorWindowComponent } from './components/error-window/error-window.com
       }
     }),
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    NgxDropzoneModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

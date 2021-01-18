@@ -10,4 +10,8 @@ export interface UserProfile {
   country: string
 
   userId: number;
+
+  profilePictureUrl: string;
+
+  profilePictureThumbnailUrl: string;
 }

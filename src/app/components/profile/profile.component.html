@@ -2,7 +2,11 @@
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
         <div class="row">
             <div class="col-md">
-                Profile picture
+                <div class="text-center profilePictureWrapper">
+                    <img src="{{profilePictureUrl | async}}" alt="" class="profilePicture img-fluid  rounded" (click)="editProfilePicture()">
+                    <div class="overlay"></div>
+                    <button mat-raised-button class="button btn-edit" color="primary" (click)="editProfilePicture()">{{'EditPhoto' | translate}} </button>
+                </div>
             </div>
             <div class="col-md">
                 <mat-form-field class="form-element">

@@ -4,6 +4,9 @@ import { UserService } from '../../../_services/user.service';
 import { UserProfile } from '../../model/user-profile';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MessageService } from '../../../_services/error-service.service';
+import { Observable, of } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { UploadProfilePictureComponent } from '../upload-profile-picture/upload-profile-picture.component';
 
 @Component({
   selector: 'app-profile',
@@ -15,19 +18,24 @@ export class ProfileComponent implements OnInit {
   formGroup: FormGroup;
   titleAlert: string = 'This field is required';
   post: any = '';
-
+  profilePictureUrl: Observable<string>;
   currentUser: any;
   userProfileData: UserProfile;
   constructor(
     private token: TokenStorageService,
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
     this.createForm();
+    this.profilePictureUrl = of('../../../assets/images/defaultProfile.png').pipe();
+    this.getUserData();
+  }
 
+  getUserData() {
     this.userService.getUserData().subscribe(
       data => {
         this.userProfileData = data;
@@ -35,12 +43,18 @@ export class ProfileComponent implements OnInit {
         this.formGroup.controls['name'].setValue(this.userProfileData.name);
         this.formGroup.controls['country'].setValue(this.userProfileData.country);
         this.formGroup.controls['lastName'].setValue(this.userProfileData.lastName);
+        var profilePictureUrl: string = this.userProfileData.profilePictureUrl;
+        if(profilePictureUrl != null && profilePictureUrl.length > 0)
+          this.profilePictureUrl = of(profilePictureUrl).pipe();
+
          },
       err => {
-        this.userProfileData = JSON.parse(err.error).message;
+        if(err.error instanceof String)
+          this.messageService.showErrorWindow(err.error);
+        else
+          this.messageService.showErrorWindow(err.error.error);
       }
     );
-
   }
   createForm() {
     this.formGroup = this.formBuilder.group({
@@ -56,8 +70,19 @@ export class ProfileComponent implements OnInit {
 
     },
     err =>{
-      console.log(err)
       this.messageService.showErrorWindow(err.error);
+    });
+  }
+
+  editProfilePicture(){
+    const dialogRef = this.dialog.open(UploadProfilePictureComponent, {
+      panelClass: 'uploadProfilePicture',
+      data: {
+      },
+    });
+
+    dialogRef.afterClosed().subscribe( data => {
+      this.getUserData();
     });
   }
 }

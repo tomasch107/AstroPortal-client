@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AppSettings } from '../app/helpers/app-settings';
 import { UserProfile } from '../app/model/user-profile';
@@ -39,5 +39,21 @@ export class UserService {
 
   saveUserData(profileData: UserProfile): Observable<any> {
     return this.http.post(API_URL + 'user/saveUserData', profileData);
-  }}
+  }
+
+  uploadProfilePicture(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+
+    formData.append('file', file);
+
+    const req = new HttpRequest('POST', API_URL + 'user/updateProfilePicture', formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
+  }
+}
+
+
 

@@ -1,0 +1,13 @@
+<ngx-dropzone (change)="onSelect($event)" [multiple]="false" accept="image/jpeg,image/jpg,image/png,image/gif" class="dropzone">
+    <ngx-dropzone-label>
+        <i-feather name="user" class="big-icon" style="color: black;"></i-feather>
+    </ngx-dropzone-label>
+    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+    </ngx-dropzone-image-preview>
+</ngx-dropzone>
+
+
+<button mat-raised-button class="button" type="submit" color="primary" [disabled]="!fileSelected" (click)="upload()">Upload </button>
+
+<div class="alert alert-light" role="alert">{{ message }}</div>

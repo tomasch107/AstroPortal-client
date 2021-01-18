@@ -13,5 +13,6 @@
     "Nickname": "Profile Name",
     "Country": "Country",
     "Required": "This is required",
-    "Error": "Error"
+    "Error": "Error",
+    "EditPhoto": "Edit photo"
 }
