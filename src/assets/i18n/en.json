@@ -14,5 +14,16 @@
     "Country": "Country",
     "Required": "This is required",
     "Error": "Error",
-    "EditPhoto": "Edit photo"
+    "EditPhoto": "Edit photo",
+    "Title": "Title",
+    "Description": "Description",
+    "Telescope": "Telescope",
+    "Camera": "Camera",
+    "Mount": "Mount",
+    "Date": "Date",
+    "Filters": "Filters",
+    "Location": "Location",
+    "Maximum": "Maximum",
+    "Chars": "Chars",
+    "Exposure": "Exposure"
 }

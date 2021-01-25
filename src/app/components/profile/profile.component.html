@@ -1,4 +1,4 @@
-<div class="container" *ngIf="!post" novalidate>
+<div class="container" *ngIf="currentUser; else loggedOut" novalidate>
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
         <div class="row">
             <div class="col-md">
@@ -44,5 +44,5 @@
 </div>
 
 <ng-template #loggedOut>
-    Please login.
+    <app-please-login></app-please-login>
 </ng-template>

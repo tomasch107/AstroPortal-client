@@ -9,6 +9,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { SignUpSignInComponent } from './components/sign-up-sign-in/sign-up-sign-in.component';
+import { UploadImageComponent } from './components/upload-image/upload-image.component';
+import { ImageComponent } from './components/images/image/image.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -20,7 +22,10 @@ const routes: Routes = [
   { path: 'admin', component: BoardAdminComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'admin/manageUsers', component: ManageUsersComponent },
-  { path: 'getstarted', component: SignUpSignInComponent}
+  { path: 'getstarted', component: SignUpSignInComponent},
+  { path: 'uploadimage', component: UploadImageComponent},
+  { path: 'users/:username/:imageId', component: ImageComponent},
+
 ];
 
 @NgModule({

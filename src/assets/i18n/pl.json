@@ -14,6 +14,16 @@
     "Country": "Kraj",
     "Required": "To pole jest wymagane",
     "Error": "Błąd",
-    "EditPhoto": "Edytuj zdjęcie"
-
+    "EditPhoto": "Edytuj zdjęcie",
+    "Title": "Tytuł",
+    "Description": "Opis",
+    "Telescope": "Teleskop",
+    "Camera": "Kamera",
+    "Mount": "Montaż",
+    "Date": "Data",
+    "Filters": "Filtry",
+    "Location": "Lokalizacja",
+    "Maximum": "Maksymalnie",
+    "Chars": "Znaków",
+    "Exposure": "Ekspozycja"
 }

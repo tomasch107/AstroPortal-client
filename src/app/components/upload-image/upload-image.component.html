@@ -1,0 +1,110 @@
+<div class="container" *ngIf="currentUser" novalidate>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form" *ngIf="!loading;else progressSpinner">
+        <div class="row">
+            <div class="col-md">
+                <ngx-dropzone (change)="onSelect($event)" [multiple]="false" accept="image/jpeg,image/jpg,image/png,image/gif" class="dropzone">
+                    <ngx-dropzone-label>
+                        <i-feather name="user" class="big-icon" style="color: black;"></i-feather>
+                    </ngx-dropzone-label>
+                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                    </ngx-dropzone-image-preview>
+                </ngx-dropzone>
+                <mat-form-field class="form-element">
+                    <input matInput placeholder="{{'Title' | translate}}" formControlName="title">
+                    <mat-error *ngIf="!formGroup.controls['title'].valid && formGroup.controls['title'].touched">
+                        {{'Required' | translate}} {{'Maximum' | translate}} 40 {{'Chars' | translate}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-element">
+                    <textarea matInput placeholder="{{'Description' | translate}}" matTextareaAutosize matAutosizeMinRows="3" matAutosizeMaxRows="5" formControlName="description"></textarea>
+                    <mat-error *ngIf="!formGroup.controls['description'].valid && formGroup.controls['description'].touched">
+                        {{'Maximum' | translate}} 2000 {{'Chars' | translate}}
+                    </mat-error>
+                </mat-form-field>
+                <div class="row">
+                    <div class="col-md">
+                        <mat-form-field class="form-element">
+                            <input matInput placeholder="{{'Telescope' | translate}}" formControlName="telescope">
+                            <mat-error *ngIf="!formGroup.controls['telescope'].valid && formGroup.controls['telescope'].touched">
+                                {{'Maximum' | translate}} 255 {{'Chars' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md">
+                        <mat-form-field class="form-element">
+                            <input matInput placeholder="{{'Camera' | translate}}" formControlName="camera">
+                            <mat-error *ngIf="!formGroup.controls['camera'].valid && formGroup.controls['camera'].touched">
+                                {{'Maximum' | translate}} 255 {{'Chars' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <mat-form-field class="form-element">
+                            <input matInput placeholder="{{'Mount' | translate}}" formControlName="mount">
+                            <mat-error *ngIf="!formGroup.controls['mount'].valid && formGroup.controls['mount'].touched">
+                                {{'Maximum' | translate}} 255 {{'Chars' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md">
+                        <mat-form-field class="form-element">
+                            <input matInput placeholder="{{'Exposure' | translate}}" formControlName="exposureTimes">
+                            <mat-error *ngIf="!formGroup.controls['exposureTimes'].valid && formGroup.controls['exposureTimes'].touched">
+                                {{'Maximum' | translate}} 255 {{'Chars' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <mat-form-field appearance="fill">
+                            <mat-label> {{'Date' | translate}}</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="date">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="!formGroup.controls['date'].valid && formGroup.controls['date'].touched">
+                                {{'DateNotValid' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md">
+
+                        <mat-form-field class="form-element">
+                            <input matInput placeholder="{{'Filters' | translate}}" formControlName="filters">
+                            <mat-error *ngIf="!formGroup.controls['filters'].valid && formGroup.controls['filters'].touched">
+                                {{'Maximum' | translate}} 255 {{'Chars' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <mat-form-field class="form-element">
+                            <input matInput placeholder="{{'Location' | translate}}" formControlName="location">
+                            <mat-error *ngIf="!formGroup.controls['location'].valid && formGroup.controls['location'].touched">
+                                {{'Maximum' | translate}} 255 {{'Chars' | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md">
+
+                    </div>
+                </div>
+                <div class="form-element">
+                    <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid || !fileSelected">{{'Save' | translate}}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container loader" *ngIf="loading">
+    <mat-spinner style="margin:0 auto;"></mat-spinner>
+</div>
+<div *ngIf="!currentUser">
+    <app-please-login></app-please-login>
+</div>

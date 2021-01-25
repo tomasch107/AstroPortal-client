@@ -40,10 +40,8 @@ export class UploadProfilePictureComponent implements OnInit {
   }
 
   onRemove(event) {
-    console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
     this.fileSelected = false;
-
   }
   ngOnInit(): void {
   }

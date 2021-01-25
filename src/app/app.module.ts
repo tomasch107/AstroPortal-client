@@ -26,6 +26,9 @@ import { ErrorWindowComponent } from './components/error-window/error-window.com
 import { UploadFilesComponent } from './components/components/upload-files/upload-files.component';
 import { UploadProfilePictureComponent } from './components/upload-profile-picture/upload-profile-picture.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { UploadImageComponent } from './components/upload-image/upload-image.component';
+import { PleaseLoginComponent } from './components/please-login/please-login.component';
+import { ImageComponent } from './components/images/image/image.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,10 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     SignUpSignInComponent,
     ErrorWindowComponent,
     UploadFilesComponent,
-    UploadProfilePictureComponent
+    UploadProfilePictureComponent,
+    UploadImageComponent,
+    PleaseLoginComponent,
+    ImageComponent
   ],
   imports: [
     BrowserModule,

@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
   profilePictureUrl: Observable<string>;
   currentUser: any;
   userProfileData: UserProfile;
+
   constructor(
     private token: TokenStorageService,
     private userService: UserService,
@@ -70,7 +71,7 @@ export class ProfileComponent implements OnInit {
 
     },
     err =>{
-      this.messageService.showErrorWindow(err.error);
+      this.messageService.showErrorWindow(err.error.message);
     });
   }
 
