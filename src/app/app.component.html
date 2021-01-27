@@ -33,9 +33,9 @@
                 </option>
               </select>
             </span>
+            <mat-slide-toggle [(ngModel)]="isDarkTheme" labelPosition="before" (change)="storeThemeSelection()"></mat-slide-toggle>
         </ul>
 
     </div>
 </nav>
-
 <router-outlet></router-outlet>

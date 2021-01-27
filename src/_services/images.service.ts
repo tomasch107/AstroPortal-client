@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpEvent, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AppSettings } from '../app/helpers/app-settings';
 import { Observable } from 'rxjs';
 import { ImageData } from 'src/app/model/image-data';
+import { UserProfile } from '../app/model/user-profile';
 
 const API_URL = AppSettings.API_ENDPOINT
 
@@ -31,5 +32,10 @@ export class ImagesService {
 
   getImageByIdAndUsername(id: number, username: string): Observable<ImageData>{
     return this.http.get<ImageData>(API_URL + 'images/getByIdAndUsername/' + id + "/" + username);
+  }
+
+  getUserPublicData(username: string): Observable<any>
+  {
+    return this.http.get(API_URL + 'images/getUserPublicData/' + username);
   }
 }

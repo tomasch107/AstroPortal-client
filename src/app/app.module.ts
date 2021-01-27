@@ -29,6 +29,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
 import { PleaseLoginComponent } from './components/please-login/please-login.component';
 import { ImageComponent } from './components/images/image/image.component';
+import { UserImageComponent } from './components/images/user-image/user-image.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ImageComponent } from './components/images/image/image.component';
     UploadProfilePictureComponent,
     UploadImageComponent,
     PleaseLoginComponent,
-    ImageComponent
+    ImageComponent,
+    UserImageComponent
   ],
   imports: [
     BrowserModule,

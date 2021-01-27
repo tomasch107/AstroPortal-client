@@ -1,67 +1,70 @@
 <div class="container" *ngIf="!loading">
-    <mat-card class="example-card">
-        <div class="d-flex header">
-            <img mat-card-avatar class="example-header-image" src="{{imageUri | async}}">
-            <div class="title mr-auto p-2 ">{{imageData.title}}</div>
-            <div class="p-2">
-                <i-feather name="map-pin" class="big-icon" style="color: black;"></i-feather>
-            </div>
-            <div class="subtitle p-2">
-                <p class="font-weight-normal text-right">{{imageData.location}}</p>
-            </div>
-        </div>
-        <img mat-card-image src="{{imageUri | async}}" alt="Photo of a Shiba Inu">
-        <mat-card-content>
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="expansion-panel">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        {{imageData.title}}
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        {{imageData.description.substr(0, 30)}}...
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <p class="description">{{imageData.description}}</p>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p class="font-weight-bold">{{"Telescope"| translate}}</p>
-                    </div>
-                    <div class="col-sm-9">
-                        <p>{{imageData.telescope}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p class="font-weight-bold">{{"Mount"| translate}}</p>
-                    </div>
-                    <div class="col-sm-9">
-                        <p>{{imageData.mount}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p class="font-weight-bold">{{"Exposure"| translate}}</p>
-                    </div>
-                    <div class="col-sm-9">
-                        <p>{{imageData.exposureTimes}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p class="font-weight-bold">{{"Camera"| translate}}</p>
-                    </div>
-                    <div class="col-sm-9">
-                        <p>{{imageData.camera}}</p>
-                    </div>
-                </div>
-            </mat-expansion-panel>
+    <div *ngIf="imageData | async as imageData">
 
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button>
-        </mat-card-actions>
-    </mat-card>
+        <mat-card class="example-card">
+            <div class="d-flex header">
+                <img mat-card-avatar class="example-header-image" src="{{imageUri | async}}">
+                <div class="title mr-auto p-2 ">{{imageData.title}}</div>
+                <div class="p-2">
+                    <i-feather name="map-pin" class="big-icon" style="color: black;"></i-feather>
+                </div>
+                <div class="subtitle p-2">
+                    <p class="font-weight-normal text-right">{{imageData.location}}</p>
+                </div>
+            </div>
+            <img mat-card-image src="{{imageUri | async}}" alt="Photo of a Shiba Inu">
+            <mat-card-content>
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="expansion-panel">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{imageData.title}}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            {{cuttedDescription}}...
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <p class="description">{{imageData.description}}</p>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="font-weight-bold">{{"Telescope"| translate}}</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p>{{imageData.telescope}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="font-weight-bold">{{"Mount"| translate}}</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p>{{imageData.mount}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="font-weight-bold">{{"Exposure"| translate}}</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p>{{imageData.exposureTimes}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="font-weight-bold">{{"Camera"| translate}}</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p>{{imageData.camera}}</p>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button>LIKE</button>
+                <button mat-button>SHARE</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
 </div>
 
 <div class="container loader" *ngIf="loading">

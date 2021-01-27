@@ -6,6 +6,8 @@ import { UserService } from '../../../_services/user.service';
 import { TokenStorageService } from '../../../_services/token-storage.service';
 import { DateValidator } from '../../helpers/date-validator';
 import { ImagesService } from '../../../_services/images.service';
+import { HttpResponse } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 @Component({
@@ -22,18 +24,29 @@ export class UploadImageComponent implements OnInit {
   fileSelected = false;
   maximumDescChar = 2000;
   loading = false;
+  nickname;
   constructor(
     private token: TokenStorageService,
     private userService: UserService,
     private formBuilder: FormBuilder,
     private messageService: MessageService,
     public dialog: MatDialog,
-    private imageService: ImagesService
+    private imageService: ImagesService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
     this.createForm();
+    this.userService.getUserData().subscribe(
+      (data) => {
+          this.nickname = data.nickname;
+      },
+      (err) => {
+        this.messageService.showErrorWindow(err.error.message);
+      },
+      () => this.loading = false
+    );
   }
 
   onSelect(event) {
@@ -65,9 +78,10 @@ export class UploadImageComponent implements OnInit {
     this.loading = true;
     this.imageService.uploadImage(post, this.files[0]).subscribe(
       (data) => {
-      },
+          if(data instanceof HttpResponse)
+              this.router.navigateByUrl('/users/' + this.nickname + '/' + data.body.id);
+        },
       (err) => {
-        console.log(err)
         this.messageService.showErrorWindow(err.error.message);
       },
       () => this.loading = false

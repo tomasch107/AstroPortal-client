@@ -28,3 +28,10 @@
     background-color: transparent;
     box-shadow: 0 0 black;
 }
+
+.mat-app-background {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}

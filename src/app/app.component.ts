@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TokenStorageService } from 'src/_services/token-storage.service';
 import { SignUpSignInComponent } from './components/sign-up-sign-in/sign-up-sign-in.component';
@@ -16,16 +16,20 @@ export class AppComponent implements OnInit {
   showModeratorBoard = false;
   username: string;
   lang: string;
+  isDarkTheme: boolean = false;
   constructor(
     private tokenStorageService: TokenStorageService,
     public dialog: MatDialog,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private renderer: Renderer2
   ) {
     translate.addLangs(['en', 'pl']);
     translate.setDefaultLang('en');
   }
 
   ngOnInit(): void {
+    this.isDarkTheme = localStorage.getItem('theme') === "Dark" ? true : false;
+    this.storeThemeSelection();
     this.lang = localStorage.getItem('language');
     if(this.lang == null)
     {
@@ -71,5 +75,13 @@ export class AppComponent implements OnInit {
   switchLang(lang: string) {
     this.translate.use(lang);
     localStorage.setItem('language', lang);
+  }
+
+  storeThemeSelection() {
+    if(this.isDarkTheme)
+      this.renderer.addClass(document.body, 'dark-theme-mode');
+    else
+      this.renderer.removeClass(document.body, 'dark-theme-mode');
+    localStorage.setItem('theme', this.isDarkTheme ? "Dark" : "Light");
   }
 }
