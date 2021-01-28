@@ -1,41 +1,89 @@
-<nav class="navbar bg-dark navbar-dark bg-faded py-3 justify-content-between flex-nowrap flex-row">
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark bg-faded py-3 justify-content-between flex-nowrap flex-row">
     <div class="container">
         <a href="#" class="navbar-brand float-left">
             <img src="../assets/SVGs/mainLogo.svg" width="35" alt="" class="d-inline-block align-middle mr-2">
             <span class="text">Astroportal</span>
         </a>
-
-        <ul class="nav navbar-nav flex-row float-right">
-            <li class="nav-item">
-                <a class="nav-link pr-3">
-                    <i-feather name="search" class="big-icon" style="color: white;"></i-feather>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link pr-3" href="/uploadimage">
-                    <i-feather name="camera" class="big-icon" style="color: white;"></i-feather>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link pr-3" (click)="onProfileClick()">
-                    <i-feather name="user" class="big-icon" style="color: white;"></i-feather>
-                </a>
-            </li>
-            <span class="form-inline">
-              <select
-                  class="form-control"
-                  #selectedLang
-                  (change)="switchLang(selectedLang.value)">
-                <option *ngFor="let language of translate.getLangs()"
-                  [value]="language"
-                  [selected]="language === translate.currentLang">
-                  {{ language }}
-                </option>
-              </select>
-            </span>
-            <mat-slide-toggle [(ngModel)]="isDarkTheme" labelPosition="before" (change)="storeThemeSelection()"></mat-slide-toggle>
-        </ul>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav navbar-right ">
+                <li class="nav-item">
+                    <a class="nav-link pr-3">
+                        <i-feather name="search" class="big-icon" style="color: white;"></i-feather>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link pr-3" href="/uploadimage">
+                        <i-feather name="camera" class="big-icon" style="color: white;"></i-feather>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link pr-3" (click)="onProfileClick()">
+                        <i-feather name="user" class="big-icon" style="color: white;"></i-feather>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <mat-form-field class="lang-select">
+                        <mat-select [(ngModel)]="nodeType" (selectionChange)="switchLang(nodeType.value)">
+                            <mat-select-trigger>
+                                <span [innerHTML]="nodeType.iconHtml"></span>
+                            </mat-select-trigger>
+                            <mat-option *ngFor="let item of nodeTypes" [value]="item">
+                                <span [innerHTML]="item.iconHtml"></span>
+                                <span> {{ item.description | translate}}</span>
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </li>
+                <li class="nav-item">
+                    <mat-slide-toggle class="dark-mode-picker" [(ngModel)]="isDarkTheme" labelPosition="before" (change)="storeThemeSelection()"></mat-slide-toggle>
+                </li>
+            </ul>
+        </div>
 
     </div>
 </nav>
+
+<div class="collapsed-navbar collapse navbar-collapse justify-content-end bg-dark navbar-dark" id="navbarNavDropdown">
+    <ul class="navbar-nav navbar-right ">
+        <li class="nav-item">
+            <a class="nav-link pr-3">
+                <i-feather name="search" class="big-icon" style="color: white;"></i-feather>
+                <p class="menu-description"> Search</p>
+
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link pr-3" href="/uploadimage">
+                <i-feather name="camera" class="big-icon" style="color: white;"></i-feather>
+                <p class="menu-description"> Upload photo</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link pr-3" (click)="onProfileClick()">
+                <i-feather name="user" class="big-icon" style="color: white;"></i-feather>
+                <p class="menu-description"> User profile</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <mat-form-field class="lang-select">
+                <mat-select [(ngModel)]="nodeType" (selectionChange)="switchLang(nodeType.value)">
+                    <mat-select-trigger>
+                        <span [innerHTML]="nodeType.iconHtml"></span>
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let item of nodeTypes" [value]="item">
+                        <span [innerHTML]="item.iconHtml"></span>
+                        <span> {{ item.description | translate}}</span>
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </li>
+        <li class="nav-item">
+            <mat-slide-toggle class="dark-mode-picker-dropdown" [(ngModel)]="isDarkTheme" labelPosition="before" (change)="storeThemeSelection()"></mat-slide-toggle>
+        </li>
+    </ul>
+</div>
+
 <router-outlet></router-outlet>

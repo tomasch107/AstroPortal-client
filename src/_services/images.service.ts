@@ -34,8 +34,12 @@ export class ImagesService {
     return this.http.get<ImageData>(API_URL + 'images/getByIdAndUsername/' + id + "/" + username);
   }
 
-  getUserPublicData(username: string): Observable<any>
+  getUserPublicData(username: string): Observable<UserProfile>
   {
-    return this.http.get(API_URL + 'images/getUserPublicData/' + username);
+    return this.http.get<UserProfile>(API_URL + 'images/getUserPublicData/' + username);
+  }
+
+  getAllImagesByUsername(username: string): Observable<ImageData[]>{
+    return this.http.get<ImageData[]>(API_URL + 'images/getAllImagesByUsername/' + username);
   }
 }

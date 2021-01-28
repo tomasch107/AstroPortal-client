@@ -30,7 +30,6 @@ import { UploadImageComponent } from './components/upload-image/upload-image.com
 import { PleaseLoginComponent } from './components/please-login/please-login.component';
 import { ImageComponent } from './components/images/image/image.component';
 import { UserImageComponent } from './components/images/user-image/user-image.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +66,8 @@ import { UserImageComponent } from './components/images/user-image/user-image.co
     }),
     ReactiveFormsModule,
     MaterialModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
