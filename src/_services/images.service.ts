@@ -4,6 +4,8 @@ import { AppSettings } from '../app/helpers/app-settings';
 import { Observable } from 'rxjs';
 import { ImageData } from 'src/app/model/image-data';
 import { UserProfile } from '../app/model/user-profile';
+import { TokenStorageService } from './token-storage.service';
+import { ImageComment } from '../app/model/image-comment';
 
 const API_URL = AppSettings.API_ENDPOINT
 
@@ -12,18 +14,19 @@ const API_URL = AppSettings.API_ENDPOINT
 })
 export class ImagesService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private tokenStorageService: TokenStorageService) {
 
   }
   uploadImage(imageData: ImageData,  file: File): Observable<HttpEvent<any>> {
 
     const formData: FormData = new FormData();
-
+    let profileId = this.tokenStorageService.getCurrentProfileId();
     formData.append('file', file);
     const myObjStr = JSON.stringify(imageData);
     const imageBlob = new Blob([myObjStr],{ type: "application/json"});
     formData.append('image', imageBlob);
-    const req = new HttpRequest('POST', API_URL + 'images/uploadImage', formData, {
+    const req = new HttpRequest('POST', API_URL + 'images/uploadImage/' + profileId, formData, {
       responseType: 'json'
     });
 
@@ -41,5 +44,34 @@ export class ImagesService {
 
   getAllImagesByUsername(username: string): Observable<ImageData[]>{
     return this.http.get<ImageData[]>(API_URL + 'images/getAllImagesByUsername/' + username);
+  }
+
+  addComment(comment: ImageComment): Observable<ImageComment> {
+    return this.http.post<ImageComment>(API_URL + 'images/addComment', comment);
+  }
+
+  getCommentsForImage(imageId: number, page: number, size: number)
+  {
+    const params = this.getRequestParams(imageId, page, size);
+
+    return this.http.get<any>(API_URL + 'images/getComments', { params });
+  }
+
+  getRequestParams(imageId: number, page: number, pageSize: number): any {
+    let params: any = {};
+
+    if (imageId) {
+      params[`imageId`] = imageId;
+    }
+
+    if (page) {
+      params[`page`] = page - 1;
+    }
+
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
   }
 }

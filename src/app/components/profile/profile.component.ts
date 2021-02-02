@@ -44,6 +44,7 @@ export class ProfileComponent implements OnInit {
         this.formGroup.controls['name'].setValue(this.userProfileData.name);
         this.formGroup.controls['country'].setValue(this.userProfileData.country);
         this.formGroup.controls['lastName'].setValue(this.userProfileData.lastName);
+        this.formGroup.controls['profileDescription'].setValue(this.userProfileData.profileDescription);
         var profilePictureUrl: string = this.userProfileData.profilePictureUrl;
         if(profilePictureUrl != null && profilePictureUrl.length > 0)
           this.profilePictureUrl = of(profilePictureUrl).pipe();
@@ -63,10 +64,12 @@ export class ProfileComponent implements OnInit {
       'nickname': [null, Validators.required],
       'country': [null],
       'lastName': [null],
+      'profileDescription': [null, Validators.maxLength(2000)]
     });
   }
 
   onSubmit(post) {
+    post.id = this.userProfileData.id;
     this.userService.saveUserData(post).subscribe( data =>{
 
     },
@@ -79,6 +82,7 @@ export class ProfileComponent implements OnInit {
     const dialogRef = this.dialog.open(UploadProfilePictureComponent, {
       panelClass: 'uploadProfilePicture',
       data: {
+        profileId: this.userProfileData.id
       },
     });
 

@@ -1,1 +1,35 @@
-<p>user-image works!</p>
+<div class="container" *ngIf="!loading">
+
+    <mat-card class="example-card" *ngIf="userProfileData | async as userProfile">
+        <mat-card-header class="header">
+            <img mat-card-avatar class="example-header-image" src={{userProfile.profilePictureThumbnailUrl}}>
+            <mat-card-title>{{userProfile.nickname}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p>
+                {{userProfile.profileDescription}}
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button>{{"Watch" | translate}}</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <div class="row" *ngIf="images | async as imageList">
+        <div *ngFor="let item of imageList" class="col-lg-3 col-6">
+            <div class="img-wrapper">
+                <div class="img-hover-zoom" (click)="onImageClick(item)">
+                    <img class="img-fluid img-center" src={{item.thumbnailUrl}} />
+                    <div class="img-title text-center carousel-caption">
+                        <h1 class="display-4">{{item.title}}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div class="container loader" *ngIf="loading">
+    <mat-spinner style="margin:0 auto;"></mat-spinner>
+</div>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
+const PROFILE_ID = 'current-profile-id';
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +27,18 @@ export class TokenStorageService {
   public saveUser(user): void {
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+    this.saveCurrentProfileId(user.defaultProfileId)
   }
 
   public getUser(): any {
     return JSON.parse(sessionStorage.getItem(USER_KEY));
+  }
+
+  public saveCurrentProfileId(profileId: string): void {
+    localStorage.setItem(PROFILE_ID, profileId);
+  }
+
+  public getCurrentProfileId(): string {
+    return localStorage.getItem(PROFILE_ID);
   }
 }

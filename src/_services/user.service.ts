@@ -41,12 +41,12 @@ export class UserService {
     return this.http.post(API_URL + 'user/saveUserData', profileData);
   }
 
-  uploadProfilePicture(file: File): Observable<HttpEvent<any>> {
+  uploadProfilePicture(file: File, profileId): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', API_URL + 'user/updateProfilePicture', formData, {
+    const req = new HttpRequest('POST', API_URL + 'user/updateProfilePicture/' + profileId, formData, {
       reportProgress: true,
       responseType: 'json'
     });

@@ -69,3 +69,7 @@ img {
 .profilePictureWrapper:hover .button {
     opacity: 1;
 }
+
+.profilePicture {
+    object-fit: contain;
+}

@@ -30,6 +30,7 @@ import { UploadImageComponent } from './components/upload-image/upload-image.com
 import { PleaseLoginComponent } from './components/please-login/please-login.component';
 import { ImageComponent } from './components/images/image/image.component';
 import { UserImageComponent } from './components/images/user-image/user-image.component';
+import { ImageCommentComponent } from './components/image-comment/image-comment.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +49,8 @@ import { UserImageComponent } from './components/images/user-image/user-image.co
     UploadImageComponent,
     PleaseLoginComponent,
     ImageComponent,
-    UserImageComponent
+    UserImageComponent,
+    ImageCommentComponent
   ],
   imports: [
     BrowserModule,

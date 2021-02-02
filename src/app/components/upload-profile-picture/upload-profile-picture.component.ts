@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { UploadFileService } from '../../../_services/upload-file.service';
 import { UserService } from '../../../_services/user.service';
 import { ImageData } from '../../model/file-data';
 import { MessageService } from '../../../_services/error-service.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-upload-profile-picture',
@@ -24,13 +24,17 @@ export class UploadProfilePictureComponent implements OnInit {
   imgLink: Observable<string>;
   isHovering: boolean;
   files: File[] = [];
-
+  profileId;
   fileSelected=false;
   constructor(
     private uploadService: UploadFileService,
     private userProfileService: UserService,
     private messageService: MessageService,
-    public dialogRef: MatDialogRef<UploadProfilePictureComponent>) {}
+    public dialogRef: MatDialogRef<UploadProfilePictureComponent>,
+    @Inject(MAT_DIALOG_DATA) data) {
+      this.profileId = data.profileId;
+
+    }
 
 
   onSelect(event) {
@@ -53,7 +57,7 @@ export class UploadProfilePictureComponent implements OnInit {
     this.progress = 0;
 
     this.currentFile = this.files[0];
-    this.userProfileService.uploadProfilePicture(this.currentFile).subscribe(
+    this.userProfileService.uploadProfilePicture(this.currentFile, this.profileId).subscribe(
       (event) => {
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round((100 * event.loaded) / event.total);

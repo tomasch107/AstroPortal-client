@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'src/_services/error-service.service';
 import { ImagesService } from 'src/_services/images.service';
 import { Observable, of } from 'rxjs';
@@ -15,11 +15,14 @@ export class UserImageComponent implements OnInit {
 
   userProfileData: Observable<UserProfile>
   images: Observable<Array<ImageData>>
-  loading;
+  loading = true;
   username;
+
   constructor(private imageService: ImagesService,
     private route: ActivatedRoute,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -58,5 +61,10 @@ export class UserImageComponent implements OnInit {
         },
         () => (this.loading = false)
       );
+  }
+
+  onImageClick(image: ImageData){
+    this.router.navigateByUrl('users/' + this.username + '/' + image.id);
+
   }
 }

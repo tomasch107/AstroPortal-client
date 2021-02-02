@@ -14,4 +14,8 @@ export interface UserProfile {
   profilePictureUrl: string;
 
   profilePictureThumbnailUrl: string;
+
+  profileDescription: string;
+
+  isDefault: boolean;
 }

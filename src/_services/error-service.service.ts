@@ -19,6 +19,18 @@ export class MessageService {
     });
   }
 
+  showError(err :any){
+
+    let message = err.error.message;
+    const dialogRef = this.dialog.open(ErrorWindowComponent, {
+      panelClass: 'errorWindow',
+      data: {
+        message: message,
+        yesNo: false
+      }
+    });
+  }
+
   showYesNoWindow(message :string): Observable<any>{
     const dialogRef = this.dialog.open(ErrorWindowComponent, {
       panelClass: 'errorWindow',
