@@ -31,6 +31,9 @@ import { PleaseLoginComponent } from './components/please-login/please-login.com
 import { ImageComponent } from './components/images/image/image.component';
 import { UserImageComponent } from './components/images/user-image/user-image.component';
 import { ImageCommentComponent } from './components/image-comment/image-comment.component';
+import { MomentModule } from 'ngx-moment';
+import { MomentPipe } from './helpers/moment.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +53,8 @@ import { ImageCommentComponent } from './components/image-comment/image-comment.
     PleaseLoginComponent,
     ImageComponent,
     UserImageComponent,
-    ImageCommentComponent
+    ImageCommentComponent,
+    MomentPipe
   ],
   imports: [
     BrowserModule,
@@ -69,7 +73,7 @@ import { ImageCommentComponent } from './components/image-comment/image-comment.
     ReactiveFormsModule,
     MaterialModule,
     NgxDropzoneModule,
-
+    MomentModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

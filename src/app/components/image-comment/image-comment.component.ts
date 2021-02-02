@@ -16,7 +16,7 @@ export class ImageCommentComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 100];
   comments: Observable<Array<ImageComment>>
   pageEvent: PageEvent;
-
+  locale=localStorage.getItem('language');
   @Input() imageId: number;
   @Input() private commentAdded: EventEmitter<boolean>;
 
@@ -39,7 +39,6 @@ export class ImageCommentComponent implements OnInit {
       });
     }
     this.getComments(0, 10);
-
   }
 
   getComments(page: number, size: number){

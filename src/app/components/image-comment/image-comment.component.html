@@ -1,6 +1,8 @@
 <div class="row" *ngIf="comments | async as comments">
     <div *ngFor="let item of comments" class="col-lg-12">
         <h1 class="display-4">{{item.commentText}}</h1>
+        <p>date: {{item.date | commentDate | async}}</p>
+
     </div>
 </div>
 
