@@ -38,10 +38,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 // Material Data tables
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatPaginatorI18nService } from '../../_services/mat-paginator-i18n.service';
 @NgModule({
   declarations: [],
   imports: [
@@ -120,6 +121,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSortModule,
     MatTableModule,
     MatNativeDateModule
-  ]
+  ], providers: [{
+    provide: MatPaginatorIntl,
+    useClass: MatPaginatorI18nService,
+  }],
 })
 export class MaterialModule { }

@@ -14,4 +14,6 @@ export interface ImageData {
   listOfDates: string;
   filters: string;
   userProfileId: number;
+  object: string;
+  userProfileNickname: string;
 }

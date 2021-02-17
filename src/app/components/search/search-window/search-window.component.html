@@ -1,0 +1,18 @@
+<div class="container">
+    <app-search-from class="search-form" (search)="onSearch($event, 0, 10)"></app-search-from>
+
+    <div class="row" *ngIf="images | async as imageList">
+        <div *ngFor="let item of imageList" class="col-lg-3 col-6">
+            <div class="img-wrapper">
+                <div class="img-hover-zoom" (click)="onImageClick(item)">
+                    <img class="img-fluid img-center" src={{item.thumbnailUrl}} />
+                    <div class="img-title text-center carousel-caption">
+                        <h1 class="display-4">{{item.title}}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageEvent($event)">
+    </mat-paginator>
+</div>

@@ -43,7 +43,7 @@ export class UploadImageComponent implements OnInit {
           this.nickname = data.nickname;
       },
       (err) => {
-        this.messageService.showErrorWindow(err.error.message);
+        this.messageService.showError(err);
       },
       () => this.loading = false
     );
@@ -71,6 +71,7 @@ export class UploadImageComponent implements OnInit {
       date: [null],
       filters: [null, Validators.maxLength(255)],
       location: [null, Validators.maxLength(255)],
+      object: [null, Validators.maxLength(255)],
     });
   }
 
@@ -82,7 +83,7 @@ export class UploadImageComponent implements OnInit {
               this.router.navigateByUrl('/users/' + this.nickname + '/' + data.body.id);
         },
       (err) => {
-        this.messageService.showErrorWindow(err.error.message);
+        this.messageService.showError(err);
       },
       () => this.loading = false
     );

@@ -92,7 +92,12 @@
                     </div>
 
                     <div class="col-md">
-
+                        <mat-form-field class="form-element">
+                            <input matInput placeholder="{{'Object' | translate}}" formControlName="object">
+                            <mat-error *ngIf="!formGroup.controls['object'].valid && formGroup.controls['object'].touched">
+                                {{'Maximum' | translate}} 255 {{'Chars' | translate}}
+                            </mat-error>
+                        </mat-form-field>
                     </div>
                 </div>
                 <div class="form-element">

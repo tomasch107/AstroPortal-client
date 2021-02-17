@@ -6,6 +6,7 @@ import { ImageData } from 'src/app/model/image-data';
 import { UserProfile } from '../app/model/user-profile';
 import { TokenStorageService } from './token-storage.service';
 import { ImageComment } from '../app/model/image-comment';
+import { Params } from '@angular/router';
 
 const API_URL = AppSettings.API_ENDPOINT
 
@@ -57,7 +58,7 @@ export class ImagesService {
     return this.http.get<any>(API_URL + 'images/getComments', { params });
   }
 
-  getRequestParams(imageId: number, page: number, pageSize: number): any {
+  getRequestParams(imageId: number, page: number, pageSize: number): Params {
     let params: any = {};
 
     if (imageId) {

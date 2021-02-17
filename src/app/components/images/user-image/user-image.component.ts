@@ -65,6 +65,5 @@ export class UserImageComponent implements OnInit {
 
   onImageClick(image: ImageData){
     this.router.navigateByUrl('users/' + this.username + '/' + image.id);
-
   }
 }

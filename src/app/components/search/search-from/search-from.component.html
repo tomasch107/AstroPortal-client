@@ -1,0 +1,108 @@
+<mat-card>
+    <form [formGroup]="formSearch" (ngSubmit)="onSubmit(formSearch.value)" class="form">
+        <div class="row">
+            <div class="col-md">
+                <mat-form-field class="form-element">
+                    <input matInput placeholder="{{'SearchAnything' | translate}}" formControlName="text">
+                    <mat-error *ngIf="!formSearch.controls['text'].valid && formSearch.controls['text'].touched">
+                        {{'Required' | translate}} {{'Maximum' | translate}} 50 {{'Chars' | translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="form-element">
+            <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formSearch.valid">{{'Search' | translate}}</button>
+        </div>
+    </form>
+</mat-card>
+
+<mat-expansion-panel hideToggle class="search-expand">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            {{'Search by criteria' | translate}}
+        </mat-panel-title>
+        <mat-panel-description>
+            {{'Expand' | translate}}
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+        <div class="row">
+            <div class="col-md">
+                <mat-form-field class="form-element">
+                    <input matInput placeholder="{{'Title' | translate}}" formControlName="title">
+                    <mat-error *ngIf="!formGroup.controls['title'].valid && formGroup.controls['title'].touched">
+                        {{'Maximum' | translate}} 50 {{'Chars' | translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md">
+                <mat-form-field class="form-element">
+                    <input matInput placeholder="{{'Description' | translate}}" formControlName="description">
+                    <mat-error *ngIf="!formGroup.controls['description'].valid && formGroup.controls['description'].touched">
+                        {{'Maximum' | translate}} 50 {{'Chars' | translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md">
+                <mat-form-field class="form-element">
+                    <input matInput placeholder="{{'Telescope' | translate}}" formControlName="telescope">
+                    <mat-error *ngIf="!formGroup.controls['telescope'].valid && formGroup.controls['telescope'].touched">
+                        {{'Maximum' | translate}} 50 {{'Chars' | translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <mat-form-field class="form-element">
+                    <input matInput placeholder="{{'Camera' | translate}}" formControlName="camera">
+                    <mat-error *ngIf="!formGroup.controls['camera'].valid && formGroup.controls['camera'].touched">
+                        {{'Maximum' | translate}} 50 {{'Chars' | translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md">
+                <mat-form-field class="form-element">
+                    <input matInput placeholder="{{'Mount' | translate}}" formControlName="mount">
+                    <mat-error *ngIf="!formGroup.controls['mount'].valid && formGroup.controls['mount'].touched">
+                        {{'Maximum' | translate}} 50 {{'Chars' | translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md">
+                <mat-form-field class="form-element">
+                    <input matInput placeholder="{{'Filters' | translate}}" formControlName="filters">
+                    <mat-error *ngIf="!formGroup.controls['filters'].valid && formGroup.controls['filters'].touched">
+                        {{'Maximum' | translate}} 50 {{'Chars' | translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <mat-form-field class="form-element">
+                    <input matInput placeholder="{{'Location' | translate}}" formControlName="location">
+                    <mat-error *ngIf="!formGroup.controls['location'].valid && formGroup.controls['location'].touched">
+                        {{'Maximum' | translate}} 50 {{'Chars' | translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md">
+                <mat-form-field class="form-element">
+                    <input matInput placeholder="{{'Object' | translate}}" formControlName="object">
+                    <mat-error *ngIf="!formGroup.controls['object'].valid && formGroup.controls['object'].touched">
+                        {{'Maximum' | translate}} 50 {{'Chars' | translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="form-element">
+            <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">{{'Search' | translate}}</button>
+            <mat-error *ngIf="nothingFilledIn">
+                {{'Fill at least one' | translate}}
+            </mat-error>
+        </div>
+    </form>
+
+</mat-expansion-panel>

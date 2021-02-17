@@ -12,6 +12,7 @@ import { SignUpSignInComponent } from './components/sign-up-sign-in/sign-up-sign
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
 import { ImageComponent } from './components/images/image/image.component';
 import { UserImageComponent } from './components/images/user-image/user-image.component';
+import { SearchWindowComponent } from './components/search/search-window/search-window.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -26,7 +27,9 @@ const routes: Routes = [
   { path: 'getstarted', component: SignUpSignInComponent},
   { path: 'uploadimage', component: UploadImageComponent},
   { path: 'users/:username/:imageId', component: ImageComponent},
-  { path: 'users/:username', component: UserImageComponent}
+  { path: 'users/:username', component: UserImageComponent},
+  { path: 'search', component: SearchWindowComponent}
+
 
 ];
 

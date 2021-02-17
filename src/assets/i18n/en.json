@@ -26,5 +26,14 @@
     "Maximum": "Maximum",
     "Chars": "Chars",
     "Exposure": "Exposure",
-    "Watch": "Watch"
+    "Watch": "Watch",
+	
+    "Items per page:": "Items per page:",
+    "Next page": "Next page",
+    "Previous page": "Previous page",
+    "First page": "First page",
+    "Last page": "Last page",
+	"commentText": "Comment",
+	"Like": "Like",
+	"UnauthorizedError" : "You don't have acces to this resource"
 }

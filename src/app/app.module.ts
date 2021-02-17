@@ -33,6 +33,8 @@ import { UserImageComponent } from './components/images/user-image/user-image.co
 import { ImageCommentComponent } from './components/image-comment/image-comment.component';
 import { MomentModule } from 'ngx-moment';
 import { MomentPipe } from './helpers/moment.pipe';
+import { SearchWindowComponent } from './components/search/search-window/search-window.component';
+import { SearchFromComponent } from './components/search/search-from/search-from.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { MomentPipe } from './helpers/moment.pipe';
     ImageComponent,
     UserImageComponent,
     ImageCommentComponent,
-    MomentPipe
+    MomentPipe,
+    SearchWindowComponent,
+    SearchFromComponent
   ],
   imports: [
     BrowserModule,

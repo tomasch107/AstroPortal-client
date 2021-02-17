@@ -25,6 +25,7 @@ export class ImageComponent implements OnInit {
   cuttedDescription;
   userProfile: Observable<UserProfile>;
   profileHref: string;
+  loggedIn = false;
   commentAdded: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
@@ -45,6 +46,8 @@ export class ImageComponent implements OnInit {
       this.getImageByIdAndUsername();
       this.getUserPublicData();
     });
+
+    this.loggedIn = this.tokenStorageService.getToken() != null;
   }
   private getImageByIdAndUsername() {
     this.imageService

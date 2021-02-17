@@ -16,7 +16,7 @@ export class ImageCommentComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 100];
   comments: Observable<Array<ImageComment>>
   pageEvent: PageEvent;
-  locale=localStorage.getItem('language');
+
   @Input() imageId: number;
   @Input() private commentAdded: EventEmitter<boolean>;
 
@@ -51,7 +51,6 @@ export class ImageCommentComponent implements OnInit {
       (err) => {
         this.messageService.showError(err);
       },
-      () => (console.log("end"))
     );
   }
 
@@ -65,5 +64,10 @@ export class ImageCommentComponent implements OnInit {
   {
     this.pageEvent = pageEvent;
     this.getComments(pageEvent.pageIndex, pageEvent.pageSize);
+  }
+
+  onProfilePictureClick(nickname:string)
+  {
+
   }
 }
