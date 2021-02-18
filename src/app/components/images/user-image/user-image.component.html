@@ -11,7 +11,7 @@
             </p>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-button>{{"Watch" | translate}}</button>
+            <button mat-raised-button color="{{isUserWatched ? 'primary' : ''}}" (click)="onWatchClick()">{{watchText | translate}}</button>
         </mat-card-actions>
     </mat-card>
 

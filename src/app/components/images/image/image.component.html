@@ -65,7 +65,9 @@
 
             </mat-card-content>
             <mat-card-actions>
-                <button mat-button>{{"Like"| translate}}</button>
+                <button mat-icon-button color="{{isImageLiked ? 'primary' : ''}}" aria-label="Example icon-button with a heart icon" (click)="onLikeClick()">
+                <mat-icon>thumb_up</mat-icon>  +{{numberOfLikes}}
+              </button>
             </mat-card-actions>
         </mat-card>
         <div class="comment" *ngIf="loggedIn">
@@ -77,7 +79,7 @@
                     </mat-error>
                 </mat-form-field>
                 <div class="form-element">
-                    <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">{{'Comment' | translate}}</button>
+                    <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">{{'commentText' | translate}}</button>
                 </div>
             </form>
         </div>

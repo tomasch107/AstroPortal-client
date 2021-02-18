@@ -26,6 +26,9 @@ export class ImageComponent implements OnInit {
   userProfile: Observable<UserProfile>;
   profileHref: string;
   loggedIn = false;
+  numberOfLikes: number = 0;
+  isImageLiked = false;
+  color = 'warn'
   commentAdded: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
@@ -38,6 +41,8 @@ export class ImageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loggedIn = this.tokenStorageService.getToken() != null;
+
     this.route.params.subscribe((params) => {
       this.id = params['imageId'];
       this.username = params['username'];
@@ -45,10 +50,25 @@ export class ImageComponent implements OnInit {
       this.loading = false;
       this.getImageByIdAndUsername();
       this.getUserPublicData();
+      this.getNumberOfLikes();
+      this.getIsImageLiked();
     });
-
-    this.loggedIn = this.tokenStorageService.getToken() != null;
   }
+  getIsImageLiked() {
+    var profileId: number = + this.tokenStorageService.getCurrentProfileId();
+    if(!this.loggedIn)
+      return;
+    this.imageService
+    .isImageLiked(this.id, profileId)
+    .subscribe(
+      (data) => {
+        this.isImageLiked = data;
+      },
+      (err) => {
+        this.messageService.showErrorWindow(err.error.message);
+      }
+    );  }
+
   private getImageByIdAndUsername() {
     this.imageService
       .getImageByIdAndUsername(this.id, this.username)
@@ -102,4 +122,42 @@ export class ImageComponent implements OnInit {
       () => (this.formGroup.reset())
     );
   }
+
+  getNumberOfLikes() {
+    this.imageService.getNumberOfLikes(this.id).subscribe(
+      (data) => {
+        this.numberOfLikes = data.count
+      },
+      (err) => {
+        this.messageService.showError(err);
+      },
+    );  }
+
+    onLikeClick(){
+      var profileId: number = + this.tokenStorageService.getCurrentProfileId();
+      if(this.isImageLiked)
+      {
+        this.imageService.removeLikeFromImage(this.id, profileId).subscribe(
+          (data) => {
+            this.numberOfLikes = data
+            this.isImageLiked = false;
+          },
+          (err) => {
+            this.messageService.showError(err);
+          },
+        );
+      }
+      else
+      {
+        this.imageService.addLikeToImage(this.id, profileId).subscribe(
+          (data) => {
+            this.numberOfLikes = data
+            this.isImageLiked = true;
+          },
+          (err) => {
+            this.messageService.showError(err);
+          },
+        );
+      }
+    }
 }

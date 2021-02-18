@@ -4,6 +4,7 @@ import { MessageService } from '../../../_services/error-service.service';
 import { PageEvent } from '@angular/material/paginator';
 import { ImageComment } from 'src/app/model/image-comment';
 import { Observable, of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-image-comment',
@@ -21,7 +22,8 @@ export class ImageCommentComponent implements OnInit {
   @Input() private commentAdded: EventEmitter<boolean>;
 
   constructor(private imagesService: ImagesService,
-              private messageService: MessageService) { }
+              private messageService: MessageService,
+              private router: Router) { }
 
   ngOnInit(): void {
     if (this.commentAdded) {
@@ -68,6 +70,7 @@ export class ImageCommentComponent implements OnInit {
 
   onProfilePictureClick(nickname:string)
   {
+    this.router.navigateByUrl('users/' + nickname);
 
   }
 }

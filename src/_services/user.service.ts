@@ -53,6 +53,19 @@ export class UserService {
 
     return this.http.request(req);
   }
+
+  addLikeToImage(watchedProfileId: number, watchingProfileId: number)
+  {
+    return this.http.post<any>(API_URL + 'user/watchUser/' + watchedProfileId + '/' + watchingProfileId, {});
+  }
+  removeLikeFromImage(watchedProfileId: number, watchingProfileId: number)
+  {
+    return this.http.post<any>(API_URL + 'user/unwatchUser/' + watchedProfileId + '/' + watchingProfileId, {});
+  }
+  isImageLiked(watchedProfileId: number, watchingProfileId: number)
+  {
+    return this.http.get<boolean>(API_URL + 'user/isUserWatched/' + watchedProfileId + '/' + watchingProfileId,);
+  }
 }
 
 

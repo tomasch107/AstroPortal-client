@@ -75,4 +75,22 @@ export class ImagesService {
 
     return params;
   }
+
+  getNumberOfLikes(imageId: number)
+  {
+    return this.http.get<any>(API_URL + 'images/getImagePluses/' + imageId);
+  }
+
+  addLikeToImage(imageId: number, profileId: number)
+  {
+    return this.http.post<any>(API_URL + 'images/addPlusToImage/' + imageId + '/' + profileId, {});
+  }
+  removeLikeFromImage(imageId: number, profileId: number)
+  {
+    return this.http.post<any>(API_URL + 'images/removePlusFromImage/' + imageId + '/' + profileId, {});
+  }
+  isImageLiked(imageId: number, profileId: number)
+  {
+    return this.http.get<boolean>(API_URL + 'images/isImageLiked/' + imageId + '/' + profileId);
+  }
 }

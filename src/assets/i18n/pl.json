@@ -27,14 +27,15 @@
     "Chars": "Znaków",
     "Exposure": "Ekspozycja",
     "Watch": "Obserwuj",
-	
+
     "Items per page:": "Wyświetl na stronie:",
     "Next page": "Następna strona",
     "Previous page": "Poprzednia strona",
     "First page": "Pierwsza strona",
     "Last page": "Ostatnia strona",
     "commentText": "Skomentuj",
-	"Like": "Polub",
-	"UnauthorizedError" : "Nie masz dostępu do tego zasobu"
+    "Like": "Polub",
+    "UnauthorizedError": "Nie masz dostępu do tego zasobu",
+    "Watching": "Obserwujesz"
 
 }

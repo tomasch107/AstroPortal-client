@@ -5,6 +5,8 @@ import { ImagesService } from 'src/_services/images.service';
 import { Observable, of } from 'rxjs';
 import { UserProfile } from 'src/app/model/user-profile';
 import { ImageData } from 'src/app/model/image-data';
+import { TokenStorageService } from '../../../../_services/token-storage.service';
+import { UserService } from '../../../../_services/user.service';
 
 @Component({
   selector: 'app-user-image',
@@ -17,19 +19,40 @@ export class UserImageComponent implements OnInit {
   images: Observable<Array<ImageData>>
   loading = true;
   username;
-
+  loggedIn = false;
+  profileId: number = 0;
+  isUserWatched = false;
+  watchText = 'Watch';
   constructor(private imageService: ImagesService,
     private route: ActivatedRoute,
     private messageService: MessageService,
-    private router: Router
-    ) { }
+    private router: Router,
+    private tokenStorageService: TokenStorageService,
+    private userService: UserService) { }
 
   ngOnInit(): void {
+    this.loggedIn = this.tokenStorageService.getToken() != null;
     this.route.params.subscribe((params) => {
       this.username = params['username'];
       this.getAllImages();
       this.getUserPublicData();
     });
+  }
+  getIsProfileWatched() {
+    var profileId: number = + this.tokenStorageService.getCurrentProfileId();
+    if(!this.loggedIn)
+      return;
+    this.userService
+    .isImageLiked(profileId, this.profileId)
+    .subscribe(
+      (data) => {
+        this.isUserWatched = data;
+        this.watchText = data ? 'Watching' : 'Watch';
+      },
+      (err) => {
+        this.messageService.showErrorWindow(err.error.message);
+      }
+    );
   }
 
 
@@ -55,15 +78,47 @@ export class UserImageComponent implements OnInit {
       .subscribe(
         (data) => {
           this.userProfileData = of(data);
+          this.profileId = data.id;
         },
         (err) => {
           this.messageService.showErrorWindow(err.error.message);
         },
-        () => (this.loading = false)
+        () => {
+          this.loading = false;
+          this.getIsProfileWatched();
+        }
       );
   }
 
   onImageClick(image: ImageData){
     this.router.navigateByUrl('users/' + this.username + '/' + image.id);
+  }
+
+  onWatchClick(){
+    var profileId: number = + this.tokenStorageService.getCurrentProfileId();
+    if(this.isUserWatched)
+    {
+      this.userService.removeLikeFromImage(profileId, this.profileId).subscribe(
+        (data) => {
+          this.isUserWatched = false;
+          this.watchText = 'Watch';
+        },
+        (err) => {
+          this.messageService.showError(err);
+        },
+      );
+    }
+    else
+    {
+      this.userService.addLikeToImage(profileId, this.profileId).subscribe(
+        (data) => {
+          this.isUserWatched = true;
+          this.watchText = 'Watching';
+        },
+        (err) => {
+          this.messageService.showError(err);
+        },
+      );
+    }
   }
 }
