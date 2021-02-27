@@ -36,6 +36,8 @@
     "commentText": "Skomentuj",
     "Like": "Polub",
     "UnauthorizedError": "Nie masz dostępu do tego zasobu",
-    "Watching": "Obserwujesz"
-
+    "Watching": "Obserwujesz",
+    "Send": "Wyślij",
+    "Message": "Wiadomość",
+    "Show conversations": "Pokaż/ukryj wiadomości"
 }

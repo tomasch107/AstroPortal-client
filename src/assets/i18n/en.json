@@ -36,6 +36,9 @@
     "commentText": "Comment",
     "Like": "Like",
     "UnauthorizedError": "You don't have acces to this resource",
-    "Watching": "Watched"
+    "Watching": "Watched",
+    "Send": "Send",
+    "Message": "Message",
+    "Show conversations": "show/hide messages"
 
 }

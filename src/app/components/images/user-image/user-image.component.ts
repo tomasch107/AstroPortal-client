@@ -43,7 +43,7 @@ export class UserImageComponent implements OnInit {
     if(!this.loggedIn)
       return;
     this.userService
-    .isImageLiked(profileId, this.profileId)
+    .isImageLiked(this.profileId, profileId)
     .subscribe(
       (data) => {
         this.isUserWatched = data;
@@ -98,7 +98,7 @@ export class UserImageComponent implements OnInit {
     var profileId: number = + this.tokenStorageService.getCurrentProfileId();
     if(this.isUserWatched)
     {
-      this.userService.removeLikeFromImage(profileId, this.profileId).subscribe(
+      this.userService.removeLikeFromImage(this.profileId, profileId).subscribe(
         (data) => {
           this.isUserWatched = false;
           this.watchText = 'Watch';
@@ -110,7 +110,7 @@ export class UserImageComponent implements OnInit {
     }
     else
     {
-      this.userService.addLikeToImage(profileId, this.profileId).subscribe(
+      this.userService.addLikeToImage(this.profileId, profileId).subscribe(
         (data) => {
           this.isUserWatched = true;
           this.watchText = 'Watching';

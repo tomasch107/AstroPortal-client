@@ -1,0 +1,16 @@
+<div *ngIf="watched | async as watched">
+
+    <mat-selection-list #conversations>
+        <mat-list-option *ngFor="let profile of watched" [value]="profile">
+            <div class="inline-list">
+                <img src="{{profile.watchedUserProfileProfilePictureThumbnailUrl}}" class="mat-card-avatar conversation-avatar" alt="">
+                <div class="conversation-name"> {{profile.watchedUserProfileNickname}}
+                </div>
+            </div>
+        </mat-list-option>
+    </mat-selection-list>
+    <mat-dialog-actions align="end">
+        <button mat-button [mat-dialog-close]="conversations.selectedOptions.selected">{{"Open conversation" | translate}}</button>
+        <button mat-button [mat-dialog-close]="false" cdkFocusInitial>{{"Cancel" | translate}}</button>
+    </mat-dialog-actions>
+</div>

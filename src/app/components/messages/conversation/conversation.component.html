@@ -1,0 +1,21 @@
+<div class="container">
+    <mat-drawer-container class="example-container">
+        <mat-drawer #drawer class="example-sidenav" mode="side" [(opened)]="opened">
+            <app-conversation-list (conversationChange)="onConversationIdChange($event)" [newConversation]="newConversation"></app-conversation-list>
+        </mat-drawer>
+
+        <div class="example-sidenav-content">
+            <div class="buttons">
+                <button type="button" mat-button (click)="drawer.toggle()">
+              {{"Show conversations" | translate}}
+              </button>
+                <button type="button" mat-button (click)="createNewConverstaion()">
+                {{"New conversation" | translate}}
+                </button>
+            </div>
+
+            <app-messages [conversationId]="conversationId"></app-messages>
+        </div>
+
+    </mat-drawer-container>
+</div>

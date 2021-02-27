@@ -58,9 +58,9 @@ export class SignUpSignInComponent implements OnInit {
   onSignUpSubmit(): void {
     this.authService.register(this.formSignUp).subscribe(
       data => {
-        console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
+        this.reloadPage();
       },
       err => {
         this.errorMessage = err.error.message;

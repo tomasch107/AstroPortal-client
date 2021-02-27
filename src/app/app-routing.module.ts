@@ -13,6 +13,7 @@ import { UploadImageComponent } from './components/upload-image/upload-image.com
 import { ImageComponent } from './components/images/image/image.component';
 import { UserImageComponent } from './components/images/user-image/user-image.component';
 import { SearchWindowComponent } from './components/search/search-window/search-window.component';
+import { ConversationComponent } from './components/messages/conversation/conversation.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -28,9 +29,8 @@ const routes: Routes = [
   { path: 'uploadimage', component: UploadImageComponent},
   { path: 'users/:username/:imageId', component: ImageComponent},
   { path: 'users/:username', component: UserImageComponent},
-  { path: 'search', component: SearchWindowComponent}
-
-
+  { path: 'search', component: SearchWindowComponent},
+  { path: 'messages', component: ConversationComponent}
 ];
 
 @NgModule({

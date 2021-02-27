@@ -35,6 +35,10 @@ import { MomentModule } from 'ngx-moment';
 import { MomentPipe } from './helpers/moment.pipe';
 import { SearchWindowComponent } from './components/search/search-window/search-window.component';
 import { SearchFromComponent } from './components/search/search-from/search-from.component';
+import { ConversationComponent } from './components/messages/conversation/conversation.component';
+import { ConversationListComponent } from './components/messages/conversation-list/conversation-list.component';
+import { MessagesComponent } from './components/messages/messages/messages.component';
+import { FollowingComponent } from './components/following/following.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +62,11 @@ import { SearchFromComponent } from './components/search/search-from/search-from
     ImageCommentComponent,
     MomentPipe,
     SearchWindowComponent,
-    SearchFromComponent
+    SearchFromComponent,
+    ConversationComponent,
+    ConversationListComponent,
+    MessagesComponent,
+    FollowingComponent
   ],
   imports: [
     BrowserModule,

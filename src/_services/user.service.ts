@@ -66,6 +66,11 @@ export class UserService {
   {
     return this.http.get<boolean>(API_URL + 'user/isUserWatched/' + watchedProfileId + '/' + watchingProfileId,);
   }
+
+  getWatchedUsers(watchingProfileId: number)
+  {
+    return this.http.get<Array<any>>(API_URL + 'user/getWatched/' + watchingProfileId);
+  }
 }
 
 

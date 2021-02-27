@@ -1,0 +1,32 @@
+.card-messages-container {
+    height: 100%;
+}
+
+.messages-container {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 550px;
+}
+
+.message-card {
+    margin: 10px;
+}
+
+.conversation-avatar {
+    display: inline;
+}
+
+.message-content {
+    display: flex;
+}
+
+.message-text {
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+.messageDate {
+    font-size: 12px;
+}

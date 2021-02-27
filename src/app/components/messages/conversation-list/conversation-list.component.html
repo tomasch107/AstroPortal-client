@@ -1,0 +1,13 @@
+<div *ngIf="conversations">
+    <mat-selection-list #shoes [multiple]="false" (selectionChange)="onSelectionChange($event)" [(ngModel)]="selectedOptions">
+        <mat-list-option *ngFor="let conversation of conversations" [value]="conversation">
+            <div class="inline-list">
+                <img src="{{conversation.participants.length < 2 ? conversation.participants[0].profilePictureThumbnailUrl : (conversation.participants[0].id === profileId ? conversation.participants[1].profilePictureThumbnailUrl : conversation.participants[0].profilePictureThumbnailUrl)}}"
+                    class="mat-card-avatar conversation-avatar" alt="">
+                <div class="conversation-name">{{conversation.name.length > 10 ? conversation.name.substring(0,10)+'...' : conversation.name}}
+
+                </div>
+            </div>
+        </mat-list-option>
+    </mat-selection-list>
+</div>
