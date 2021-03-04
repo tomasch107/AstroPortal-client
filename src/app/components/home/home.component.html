@@ -1,15 +1,31 @@
-<div class="banner ">
+<div class="banner">
     <div class="image-background-content container h-100">
         <div class="d-flex h-100 text-center align-items-center">
             <div class="w-100 text-white">
                 <h1 class="display-4">Astroportal</h1>
-                <p class="lead mb-0">Discover universe with us</p>
-                <div class="buttonContainer">
+                <p class="lead mb-0">{{"Discover universe with us" | translate}}</p>
+                <div class="buttonContainer" *ngIf="!isLoggedIn">
                     <a class="button-start" (click)="onGetStartedClick()">
-                        <span>Get started</span>
+                        <span>{{"Get started"|translate}}</span>
                     </a>
+                </div>
+                <p class="lead mb-3 scroll-more">{{"Scroll down for more" | translate}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+    <div class="row" *ngIf="images">
+        <div *ngFor="let item of images" class="col-lg-3 col-6">
+            <div class="img-wrapper">
+                <div class="img-hover-zoom" [routerLink]="'/users/' + item.userProfileNickname + '/' + item.id">
+                    <img class="img-fluid img-center" src={{item.thumbnailUrl}} />
+                    <div class="img-title text-center carousel-caption">
+                        <h1 class="display-4">{{item.title}}</h1>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>

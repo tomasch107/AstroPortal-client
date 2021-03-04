@@ -10,6 +10,8 @@ import { HttpResponse } from '@angular/common/http';
 import { ImageComment } from '../../../model/image-comment';
 import { TokenStorageService } from '../../../../_services/token-storage.service';
 import { ThemeService } from '../../../../_services/theme.service';
+import { MatDialog } from '@angular/material/dialog';
+import { EditImageComponent } from '../edit-image/edit-image.component';
 
 @Component({
   selector: 'app-image',
@@ -23,7 +25,7 @@ export class ImageComponent implements OnInit {
   username;
   formGroup: FormGroup;
   imageUri: Observable<string>;
-  imageData: Observable<ImageData>;
+  imageData: ImageData;
   loading = true;
   cuttedDescription;
   profileHref: string;
@@ -33,7 +35,7 @@ export class ImageComponent implements OnInit {
   color = 'warn'
   theme = '';
   commentAdded: EventEmitter<boolean> = new EventEmitter();
-
+  profileId;
   constructor(
     private imageService: ImagesService,
     private route: ActivatedRoute,
@@ -41,14 +43,18 @@ export class ImageComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private tokenStorageService: TokenStorageService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.loggedIn = this.tokenStorageService.getToken() != null;
+    if (this.loggedIn)
+      this.profileId = + this.tokenStorageService.getCurrentProfileId()
+
     if (this.inputImage)
     {
-      this.imageData = of(this.inputImage);
+      this.imageData = this.inputImage;
     }
     else
     {
@@ -85,11 +91,13 @@ export class ImageComponent implements OnInit {
       .subscribe(
         (data: ImageData) => {
           this.imageUri = of(data.imageUrl).pipe();
-          this.imageData = of(data);
+          this.imageData = data;
           this.profileHref = '/users/' + data.userProfileNickname;
 
           if (data.description != null && data.description.length > 30)
             this.cuttedDescription = data.description.substring(0, 30);
+          else
+            this.cuttedDescription = data.description;
         },
         (err) => {
           this.messageService.showErrorWindow(err.error.message);
@@ -104,7 +112,7 @@ export class ImageComponent implements OnInit {
       .subscribe(
         (data: ImageData) => {
           this.imageUri = of(data.imageUrl).pipe();
-          this.imageData = of(data);
+          this.imageData = data;
           if (data.description != null && data.description.length > 30)
             this.cuttedDescription = data.description.substring(0, 30);
         },
@@ -176,4 +184,25 @@ export class ImageComponent implements OnInit {
         );
       }
     }
+
+
+    onEditClick(){
+      const dialogRef = this.dialog.open(EditImageComponent, {
+        panelClass: 'editImageDialog',
+        data: {
+          image: this.imageData
+        },
+      });
+
+      dialogRef.afterClosed().subscribe( data => {
+          if(data.title)
+            this.imageData = data;
+      });
+    }
+
+
+    openMapLocation(){
+      window.open('https://www.google.com/maps/search/?api=1&'+ this.imageData.location, "_blank");
+    }
 }
+

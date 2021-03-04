@@ -53,12 +53,7 @@
 }
 
 .dark-mode-picker {
-    padding-top: 15px;
-    padding-left: 10px;
-}
-
-.dark-mode-picker-dropdown {
-    padding-bottom: 40px;
+    vertical-align: middle;
 }
 
 .nav-link {
@@ -67,9 +62,19 @@
 
 .theme-change {
     margin-left: 15px;
+    padding-top: 15px;
 }
 
-.dark-mode-text {
-    margin-top: 4px;
-    color: white;
+.sun-icon {
+    stroke-width: 1px;
+    margin-right: -3px
+}
+
+.moon-icon {
+    stroke-width: 1px;
+    margin-left: 2px;
+}
+
+.nav-link {
+    padding-top: 11px;
 }

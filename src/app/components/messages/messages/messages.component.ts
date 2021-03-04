@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { Component, OnInit, Input, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { ConversationService } from '../../../../_services/conversation.service';
 import { MessageService } from '../../../../_services/error-service.service';
 import { TokenStorageService } from '../../../../_services/token-storage.service';
@@ -14,23 +13,28 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class MessagesComponent implements OnInit {
   @Input() conversationId: number;
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+
   conversationIdChanged=false;
   loading = false;
   length = 100;
-  pageSize = 50;
+  pageSize = 8;
   pageSizeOptions: number[] = [25, 50, 100];
-  pageEvent: PageEvent;
   totalPages;
   profileId;
   pageIndex;
-  messages: Observable<Array<Message>>;
+  messages: Array<Message>;
+  newMessages: Array<Message>;
   formGroup: FormGroup;
-
+  disableScrollDown = false
 
   constructor(private conversationService: ConversationService,
     private messageService: MessageService,
     private tokenStorageService: TokenStorageService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder) {
+      this.messages = new Array<Message>();
+      this.newMessages = new Array<Message>();
+     }
 
   ngOnChanges(changes: SimpleChanges){
     this.onConversationChange(changes.conversationId.currentValue);
@@ -38,19 +42,24 @@ export class MessagesComponent implements OnInit {
   ngOnInit(): void {
     this.profileId = + this.tokenStorageService.getCurrentProfileId();
     this.createForm();
+    this.scrollToBottom()
   }
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
   onConversationChange(conversationId: number){
     if (this.profileId == null || conversationId == null)
       return;
       this.loading = true;
+      this.disableScrollDown = false;
     this.conversationService.getMessages(conversationId,this.profileId, 0, this.pageSize).subscribe(data => {
       this.totalPages = data.totalPages;
-      let newPageEvent: PageEvent = new PageEvent();
+        this.messages = new Array<Message>();
+        let pageIndex =  this.totalPages != 0 ? this.totalPages-1: 0;
+        this.getMessages(conversationId, this.profileId, pageIndex, this.pageSize);
 
-        newPageEvent.pageIndex =  this.totalPages != 0 ? this.totalPages-1: 0;
-        newPageEvent.pageSize = this.pageSize;
-
-      this.onPageEvent(newPageEvent);
     },
     (err) => {
       this.messageService.showError(err);
@@ -59,29 +68,35 @@ export class MessagesComponent implements OnInit {
     this.conversationIdChanged=true;
   }
 
-  onPageEvent(pageEvent: PageEvent)
+  getNewMessages(conversationId, profileId, page, size)
   {
-    this.pageEvent = pageEvent;
-    this.pageSize = pageEvent.pageSize;
+    if (profileId == null || conversationId == null || page < -1)
+      return;
     this.loading = true;
-    this.getMessages(this.conversationId, this.profileId, pageEvent.pageIndex, pageEvent.pageSize);
+    this.onConversationChange(this.conversationId);
   }
-
   getMessages(conversationId, profileId, page, size)
   {
-    if (profileId == null || conversationId == null)
+    if (profileId == null || conversationId == null || page < -1)
       return;
+    this.loading = true;
+
     this.conversationService.getMessages(conversationId,profileId,page,size).subscribe(data => {
       this.totalPages = data.totalPages;
       this.length = data.totalItems
       this.pageIndex = page;
-      this.messages = of(data.messages);
-      console.log(data);
+      this.newMessages = data.messages;
+      this.messages =  this.newMessages.concat(this.messages);
+      if(this.messages.length < 8 && this.pageIndex > 0){
+        this.getMessages(conversationId, profileId, this.pageIndex -1, size);
+      }
     },
     (err) => {
       this.messageService.showError(err);
     },
-    () => (this.loading = false))
+    () => {
+      this.loading = false;
+    });
   }
 
   createForm() {
@@ -91,14 +106,30 @@ export class MessagesComponent implements OnInit {
   }
 
   onSubmit(post) {
+    this.disableScrollDown = false;
+
     post.userProfileId = this.profileId;
     post.conversationId = this.conversationId;
     this.conversationService.sendMessage(post).subscribe(data => {
-      this.getMessages(this.conversationId, this.profileId, this.pageEvent.pageIndex, this.pageEvent.pageSize);
+      this.getNewMessages(this.conversationId, this.profileId, this.pageIndex, this.pageSize);
     },
     (err) => {
       this.messageService.showError(err);
     })
     this.formGroup.reset();
   }
+
+  onScroll(){
+    this.disableScrollDown = true;
+    if (this.pageIndex > 0)
+      this.getMessages(this.conversationId, this.profileId, this.pageIndex -1, this.pageSize);
+  }
+  private scrollToBottom(): void {
+    if (this.disableScrollDown) {
+        return
+    }
+    try {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch(err) { }
+}
 }

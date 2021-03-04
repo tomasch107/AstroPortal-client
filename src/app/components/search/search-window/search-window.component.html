@@ -1,8 +1,8 @@
 <div class="container" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
-    <app-search-from class="search-form" (search)="onNewSearch($event, 1, this.pageSize)"></app-search-from>
+    <app-search-from class="search-form" (search)="onNewSearch($event, 0, this.pageSize)"></app-search-from>
 
     <div class="row" *ngIf="images">
-        <div *ngFor="let item of images" class="col-lg-12 col-6">
+        <div *ngFor="let item of images" class="col-lg-3 col-6">
             <div class="img-wrapper">
                 <div class="img-hover-zoom" [routerLink]="'/users/' + item.userProfileNickname + '/' + item.id">
                     <img class="img-fluid img-center" src={{item.thumbnailUrl}} />
@@ -12,5 +12,7 @@
                 </div>
             </div>
         </div>
+
+        <mat-spinner *ngIf="loading"></mat-spinner>
+
     </div>
-</div>

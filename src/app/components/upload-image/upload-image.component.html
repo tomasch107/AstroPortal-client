@@ -15,6 +15,7 @@
                     <mat-error *ngIf="!formGroup.controls['title'].valid && formGroup.controls['title'].touched">
                         {{'Required' | translate}} {{'Maximum' | translate}} 40 {{'Chars' | translate}}
                     </mat-error>
+                    <mat-hint>{{'Required' | translate}}</mat-hint>
                 </mat-form-field>
                 <mat-form-field class="form-element" appearance="fill">
                     <textarea matInput placeholder="{{'Description' | translate}}" matTextareaAutosize matAutosizeMinRows="3" matAutosizeMaxRows="5" formControlName="description"></textarea>

@@ -1,5 +1,5 @@
 <div class="container" *ngIf="!loading">
-    <div *ngIf="imageData | async as imageData">
+    <div *ngIf="imageData">
 
         <mat-card class="example-card">
             <div class="d-flex header">
@@ -10,18 +10,18 @@
                         <p>@{{imageData.userProfileNickname}}</p>
                     </a>
                 </div>
-                <div class="p-2" *ngIf="imageData.location">
+                <div class="p-2 cursor-pointer" *ngIf="imageData.location" (click)="openMapLocation()">
                     <i-feather name="map-pin" class="big-icon" [ngStyle]="(theme==='Dark')?{color: 'white'}:{color: 'black'}"></i-feather>
                 </div>
-                <div class="subtitle p-2">
-                    <p class="font-weight-normal text-right">{{imageData.location}}</p>
+                <div class="subtitle p-2 cursor-pointer" (click)="openMapLocation()">
+                    <p class="font-weight-normal text-right location-text">{{imageData.location}}</p>
                 </div>
             </div>
             <img mat-card-image src="{{imageData.imageUrl}}" alt="Photo of a Shiba Inu">
             <mat-card-content>
-                <div class="d-flex  flex-row-reverse">
+                <div class="d-flex  flex-row-reverse" *ngIf="loggedIn && profileId === imageData.userProfileId">
                     <div class="p-2">
-                        <i-feather name="edit-3" [ngStyle]="(theme==='Dark')?{color: 'white'}:{color: 'black'}" class="big-icon"></i-feather>
+                        <i-feather matTooltip="{{'EditPhoto' | translate}}" name="edit-3" [ngStyle]="(theme==='Dark')?{color: 'white'}:{color: 'black'}" class="big-icon cursor-pointer" (click)="onEditClick()"></i-feather>
                     </div>
                 </div>
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="expansion-panel">
@@ -40,8 +40,8 @@
 
             </mat-card-content>
             <mat-card-actions>
-                <button mat-icon-button color="{{isImageLiked ? 'primary' : ''}}" aria-label="Example icon-button with a heart icon" (click)="onLikeClick()">
-                <mat-icon>thumb_up</mat-icon>  +{{numberOfLikes}}
+                <button matTooltip="{{'Like' | translate}}" mat-icon-button color="{{isImageLiked ? 'primary' : ''}}" aria-label="Example icon-button with a heart icon" (click)="onLikeClick()">
+                <mat-icon >thumb_up</mat-icon>  +{{numberOfLikes}}
               </button>
             </mat-card-actions>
         </mat-card>

@@ -1,3 +1,4 @@
+import { getTestBed } from '@angular/core/testing';
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { ImagesService } from '../../../_services/images.service';
 import { MessageService } from '../../../_services/error-service.service';
@@ -14,8 +15,9 @@ import { Router } from '@angular/router';
 export class ImageCommentComponent implements OnInit {
   length = 100;
   pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-  comments: Observable<Array<ImageComment>>
+  pageIndex=1;
+  totalPages=0;
+  comments: Array<ImageComment>
   pageEvent: PageEvent;
 
   @Input() imageId: number;
@@ -23,32 +25,26 @@ export class ImageCommentComponent implements OnInit {
 
   constructor(private imagesService: ImagesService,
               private messageService: MessageService,
-              private router: Router) { }
+              private router: Router) {
+                this.comments = new Array<ImageComment>();
+              }
 
   ngOnInit(): void {
     if (this.commentAdded) {
       this.commentAdded.subscribe(data => {
-          console.log(data);
-          let newPageEvent: PageEvent = new PageEvent();
-          if (!this.pageEvent)
-          {
-            newPageEvent.pageIndex = 0;
-            newPageEvent.pageSize = 10;
-          }
-          else
-            newPageEvent = this.pageEvent;
-          this.onPageEvent(newPageEvent);
+        this.getNewComments(1, this.pageSize);
       });
     }
-    this.getComments(0, 10);
+    this.getComments(1, this.pageSize);
   }
 
   getComments(page: number, size: number){
-    this.imagesService.getCommentsForImage(this.imageId, page+1, size).subscribe(
+    this.imagesService.getCommentsForImage(this.imageId, page, size).subscribe(
       (data) => {
-        this.comments = of(data.comments);
+        this.comments = this.comments.concat(data.comments)
         this.length = data.totalItems
-        console.log(data);
+        this.pageIndex = page;
+        this.totalPages = data.totalPages;
       },
       (err) => {
         this.messageService.showError(err);
@@ -56,21 +52,28 @@ export class ImageCommentComponent implements OnInit {
     );
   }
 
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
-  }
-
-  onPageEvent(pageEvent: PageEvent)
-  {
-    this.pageEvent = pageEvent;
-    this.getComments(pageEvent.pageIndex, pageEvent.pageSize);
+  getNewComments(page: number, size: number){
+    this.imagesService.getCommentsForImage(this.imageId, page, size).subscribe(
+      (data) => {
+        this.comments = data.comments
+        this.length = data.totalItems
+        this.pageIndex = page;
+        this.totalPages = data.totalPages;
+      },
+      (err) => {
+        this.messageService.showError(err);
+      },
+    );
   }
 
   onProfilePictureClick(nickname:string)
   {
     this.router.navigateByUrl('users/' + nickname);
+  }
 
+  onScroll()
+  {
+    if (this.totalPages > this.pageIndex)
+      this.getComments(this.pageIndex + 1, this.pageSize)
   }
 }

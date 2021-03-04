@@ -1,5 +1,7 @@
-<mat-card class="card-messages-container" *ngIf="!loading">
-    <div *ngIf="messages | async as messages" class="messages-container" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+<mat-card class="card-messages-container">
+    <div #scrollMe *ngIf="messages" class="messages-container" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolledUp)="onScroll()" [scrollWindow]="false">
+        <mat-spinner *ngIf="loading"></mat-spinner>
+
         <div *ngFor="let message of messages">
             <div *ngIf="message.userProfileId !== profileId" class="row justify-content-start">
                 <div class="col-8">
@@ -29,9 +31,6 @@
             </div>
         </div>
     </div>
-
-    <mat-paginator [pageIndex]="pageIndex" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageEvent($event)">
-    </mat-paginator>
     <div class="addMessage" *ngIf="conversationIdChanged">
         <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
             <mat-form-field class="form-element">
@@ -46,4 +45,3 @@
         </form>
     </div>
 </mat-card>
-<mat-spinner *ngIf="loading"></mat-spinner>

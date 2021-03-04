@@ -96,4 +96,9 @@ export class ImagesService {
   {
     return this.http.get<boolean>(API_URL + 'images/isImageLiked/' + imageId + '/' + profileId);
   }
+
+  editImage(image: ImageData): Observable<UserProfile>
+  {
+    return this.http.post<UserProfile>(API_URL + 'images/editImage', image);
+  }
 }

@@ -11,6 +11,8 @@ import { SearchService } from '../../../../_services/search.service';
 export class SearchFromComponent implements OnInit {
   formGroup: FormGroup;
   formSearch: FormGroup;
+  formSearchUser: FormGroup;
+
   nothingFilledIn = false;
   @Output() search = new EventEmitter<FormGroup>();
 
@@ -29,12 +31,15 @@ export class SearchFromComponent implements OnInit {
       filters: [null, Validators.maxLength(50)],
       location: [null, Validators.maxLength(50)],
       object: [null, Validators.maxLength(50)],
-    }, {validators: this.myFormValidator}
-    );
+    }, {validators: this.myFormValidator});
+
     this.formSearch = this.formBuilder.group({
       text: [null, [Validators.required, Validators.maxLength(50)]],
-    }
-    );
+    });
+
+    this.formSearchUser = this.formBuilder.group({
+      nickname: [null, [Validators.required, Validators.maxLength(50)]],
+    });
 
   }
   myFormValidator: ValidatorFn = (group: FormGroup): ValidationErrors | null => {

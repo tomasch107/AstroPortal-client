@@ -1,4 +1,4 @@
-<div class="row" *ngIf="comments | async as comments">
+<div class="row" *ngIf="comments" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
     <div *ngFor="let item of comments" class="col-lg-12">
 
         <mat-card class="example-card comment-card">
@@ -15,7 +15,3 @@
         </mat-card>
     </div>
 </div>
-
-
-<mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageEvent($event)">
-</mat-paginator>

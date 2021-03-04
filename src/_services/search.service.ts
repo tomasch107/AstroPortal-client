@@ -24,7 +24,7 @@ export class SearchService {
   getRequestParams (searchParams: SearchParams, page: number, size: number): Params {
     let params: any = {};
     if (page) {
-      params[`page`] = page - 1;
+      params[`page`] = page;
     }
     if (size) {
       params[`size`] = size;
@@ -60,5 +60,23 @@ export class SearchService {
 
 
     return params;
+  }
+
+  getObservedImages(profileId:number, page: number, size: number){
+    let params: any = {};
+      params[`page`] = page;
+      params[`size`] = size;
+      params[`userProfileId`] = profileId;
+
+      return this.http.get<any>(API_URL + 'search/getObservedImages', { params });
+  }
+
+
+  getNewestImages(page: number, size: number){
+    let params: any = {};
+      params[`page`] = page;
+      params[`size`] = size;
+
+      return this.http.get<any>(API_URL + 'search/getNewestImages', { params });
   }
 }

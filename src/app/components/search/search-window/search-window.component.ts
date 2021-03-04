@@ -16,8 +16,9 @@ export class SearchWindowComponent implements OnInit {
   loading = false;
   pageIndex: number=1;
   length = 100;
-  pageSize = 2;
+  pageSize = 20;
   pageEvent: PageEvent;
+  totalPages=0;
   searchRequestData;
 
   constructor(private searchService: SearchService,
@@ -30,7 +31,7 @@ export class SearchWindowComponent implements OnInit {
     const { pageIndex, pageSize } = this.getParamsFromRoute();
     if (pageIndex && pageSize)
     {
-      for (let i = 1; i < pageIndex; i++) {
+      for (let i = 0; i <= pageIndex; i++) {
         this.onSearch(this.searchRequestData, i, pageSize)
       }
     }
@@ -48,7 +49,7 @@ export class SearchWindowComponent implements OnInit {
     const filters = params['filters'];
     const location = params['location'];
     const object = params['object'];
-    const userProfileNickname = params['userProfileNickname'];
+    const nickname = params['nickname'];
 
     this.searchRequestData = new Object();
     if (text)
@@ -67,8 +68,8 @@ export class SearchWindowComponent implements OnInit {
       this.searchRequestData.location = location;
     if (object)
       this.searchRequestData.object = object;
-      if (userProfileNickname)
-      this.searchRequestData.userProfileNickname = userProfileNickname;
+    if (nickname)
+      this.searchRequestData.nickname = nickname;
     return { pageIndex, pageSize };
   }
 
@@ -80,7 +81,6 @@ export class SearchWindowComponent implements OnInit {
 
   onSearch(searchEvent, pageIndex: number, pageSize)
   {
-    console.log('search' + pageIndex)
     this.pageIndex = pageIndex;
     this.searchRequestData = searchEvent;
     this.loading = true;
@@ -88,6 +88,7 @@ export class SearchWindowComponent implements OnInit {
       (data) => {
         this.images = this.images.concat(data.images);
         this.length = data.totalItems
+        this.totalPages = data.totalPages
         this.myMethodChangingQueryParams();
       },
       (err) => {
@@ -113,17 +114,19 @@ export class SearchWindowComponent implements OnInit {
                                   object: this.searchRequestData.object,
                                   pageSize: this.pageSize,
                                   pageIndex: this.pageIndex,
-                                  userProfileNickname: this.searchRequestData.userProfileNickname
+                                  nickname: this.searchRequestData.nickname
     };
     this.router.navigate(
       [],
       {
         relativeTo: this.route,
         queryParams: queryParams,
-        queryParamsHandling: 'merge', // remove to replace all query params by provided
+        queryParamsHandling: 'merge',
       });
   }
   onScroll() {
-    this.onSearch(this.searchRequestData, parseInt(this.pageIndex.toString()) + parseInt('1'), this.pageSize);
+    var nextPage = parseInt(this.pageIndex.toString()) + parseInt('1')
+    if (nextPage < this.totalPages)
+      this.onSearch(this.searchRequestData, parseInt(this.pageIndex.toString()) + parseInt('1'), this.pageSize);
   }
 }

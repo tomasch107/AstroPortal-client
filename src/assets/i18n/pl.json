@@ -23,11 +23,13 @@
     "Date": "Data",
     "Filters": "Filtry",
     "Location": "Lokalizacja",
-    "Maximum": "Maksymalnie",
+    "Maximum": "maksymalnie",
     "Chars": "znaków",
     "Exposure": "Ekspozycja",
     "Watch": "Obserwuj",
     "ProfileDescription": "Opis",
+    "Expand": "Rozwiń",
+    "EditPhoto": "Edytuj zdjęcie",
 
     "Items per page:": "Wyświetl na stronie:",
     "Next page": "Następna strona",
@@ -41,12 +43,33 @@
     "Send": "Wyślij",
     "Message": "Wiadomość",
     "Show conversations": "Pokaż/ukryj wiadomości",
-	"Object": "Obiekt",
+    "Object": "Obiekt",
+    "Search by criteria": "Szczegółowe wyszukiwanie",
+    "Search": "Szukaj",
+    "SearchAnything": "Wyszukaj",
+	"Create Account": "Utwórz konto",
+	"Username must be at least 3 characters": "Nazwa użytkownika musi składać się z co najmniej 3 znaków",
+	"Username must be at most 20 characters": "Nazwa użytkownika może mieć maksymalnie 20 znaków",
 
-	
-	
-	
-	
+	"Email must be a valid email address": "Niewłaściwy adres email",
+	"Password must be at least 6 characters": "Hasło musi składac się z co najmniej 6 znaków",
+	"Password is required": "Hasło jest wymagane",
+	"Email is required": "Email jest wymagany",
+	"Sign In": "Zaloguj się",
+	"Username is required!": "Nazwa użytkownika jest wymagana",
+	"Sign Up": "Zarejestruj się",
+	"Welcome back": "Witaj ponownie",
+	"To keep connected with us please login with your personal info": "Zaloguj się by być na bieżąco",
+	"Hello, Friend!": "Witaj!",
+	"Enter your personal details and start journey with us": "Uzupełnij swoje dane i zarejestruj się",
+	"ProfileNickname": "Nazwa profilu",
+	"SearchByProfile": "Wyszukaj po nazwie profilu",
+
+	"Get started": "Rozpocznij",
+	"Discover universe with us": "Odkrywaj wszechświat z nami",
+	"Scroll down for more": "Zjedź na dół po więcej",
+
+
     "Dark mode": "Tryb ciemny"
 
 }
