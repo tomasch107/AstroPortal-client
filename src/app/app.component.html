@@ -25,9 +25,24 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link pr-3" (click)="onProfileClick()">
-                        <i-feather name="user" class="big-icon" style="color: white;"></i-feather>
-                    </a>
+                    <div class="profile-menu">
+                        <button *ngIf="isLoggedIn" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" (click)="onProfileMenuClick();">
+                      <i-feather name="user" class="big-icon" style="color: white;"></i-feather>
+                    </button>
+                        <button *ngIf="!isLoggedIn" mat-icon-button aria-label="Example icon-button with a menu" (click)="onProfileMenuClick();">
+                      <i-feather name="user" class="big-icon" style="color: white;"></i-feather>
+                    </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="onProfileClick()">
+                              <mat-icon>edit</mat-icon>
+                            <span>{{"Edit profile" | translate}}</span>
+                      </button>
+                            <button mat-menu-item (click)="logout()">
+                        <mat-icon>exit_to_app</mat-icon>
+                        <span>{{"Logout" | translate}}</span>
+                      </button>
+                        </mat-menu>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <mat-form-field class="lang-select">
@@ -43,7 +58,10 @@
                     </mat-form-field>
                 </li>
                 <li class="nav-item">
-                    <mat-slide-toggle class="dark-mode-picker" [(ngModel)]="isDarkTheme" labelPosition="before" (change)="storeThemeSelection()"></mat-slide-toggle>
+                    <div class="theme-change">
+                        <mat-slide-toggle class="dark-mode-picker" [(ngModel)]="isDarkTheme" labelPosition="before" (change)="storeThemeSelection()"></mat-slide-toggle>
+                        <p class="dark-mode-text">{{"Dark mode" | translate}} </p>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -89,9 +107,13 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+            <p class="menu-description"> {{"Language change" | translate}}</p>
+
         </li>
         <li class="nav-item">
             <mat-slide-toggle class="dark-mode-picker-dropdown" [(ngModel)]="isDarkTheme" labelPosition="before" (change)="storeThemeSelection()"></mat-slide-toggle>
+            <p class="menu-description"> {{"Dark mode" | translate}}</p>
+
         </li>
     </ul>
 </div>

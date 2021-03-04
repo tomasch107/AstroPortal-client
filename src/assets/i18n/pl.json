@@ -24,9 +24,10 @@
     "Filters": "Filtry",
     "Location": "Lokalizacja",
     "Maximum": "Maksymalnie",
-    "Chars": "Znaków",
+    "Chars": "znaków",
     "Exposure": "Ekspozycja",
     "Watch": "Obserwuj",
+    "ProfileDescription": "Opis",
 
     "Items per page:": "Wyświetl na stronie:",
     "Next page": "Następna strona",
@@ -39,5 +40,13 @@
     "Watching": "Obserwujesz",
     "Send": "Wyślij",
     "Message": "Wiadomość",
-    "Show conversations": "Pokaż/ukryj wiadomości"
+    "Show conversations": "Pokaż/ukryj wiadomości",
+	"Object": "Obiekt",
+
+	
+	
+	
+	
+    "Dark mode": "Tryb ciemny"
+
 }

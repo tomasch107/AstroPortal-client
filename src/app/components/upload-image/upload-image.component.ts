@@ -8,6 +8,7 @@ import { DateValidator } from '../../helpers/date-validator';
 import { ImagesService } from '../../../_services/images.service';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ThemeService } from '../../../_services/theme.service';
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 @Component({
@@ -24,6 +25,7 @@ export class UploadImageComponent implements OnInit {
   fileSelected = false;
   maximumDescChar = 2000;
   loading = false;
+  theme='';
   nickname;
   constructor(
     private token: TokenStorageService,
@@ -32,7 +34,8 @@ export class UploadImageComponent implements OnInit {
     private messageService: MessageService,
     public dialog: MatDialog,
     private imageService: ImagesService,
-    private router: Router
+    private router: Router,
+    private themeService: ThemeService
   ) {}
 
   ngOnInit(): void {
@@ -47,6 +50,8 @@ export class UploadImageComponent implements OnInit {
       },
       () => this.loading = false
     );
+    this.theme = this.themeService.getTheme()
+    this.themeService.themeChanged$.subscribe(data=>this.theme=data)
   }
 
   onSelect(event) {
@@ -88,4 +93,13 @@ export class UploadImageComponent implements OnInit {
       () => this.loading = false
     );
   }
+
+  getDropzoneStyle(){
+    if (this.theme ==='Dark'){
+      return {
+        "background" : "gray",
+        "border": "2px dashed #FFFFFF"
+      }
+  }
+}
 }

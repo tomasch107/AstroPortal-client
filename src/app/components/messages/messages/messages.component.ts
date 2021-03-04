@@ -46,13 +46,10 @@ export class MessagesComponent implements OnInit {
     this.conversationService.getMessages(conversationId,this.profileId, 0, this.pageSize).subscribe(data => {
       this.totalPages = data.totalPages;
       let newPageEvent: PageEvent = new PageEvent();
-      if (!this.pageEvent)
-      {
+
         newPageEvent.pageIndex =  this.totalPages != 0 ? this.totalPages-1: 0;
         newPageEvent.pageSize = this.pageSize;
-      }
-      else
-        newPageEvent = this.pageEvent;
+
       this.onPageEvent(newPageEvent);
     },
     (err) => {

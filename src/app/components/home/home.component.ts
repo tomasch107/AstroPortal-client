@@ -14,14 +14,7 @@ export class HomeComponent implements OnInit {
   constructor(private userService: UserService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.userService.getPublicContent().subscribe(
-      data => {
-        this.content = data;
-      },
-      err => {
-        this.content = JSON.parse(err.error).message;
-      }
-    );
+
   }
   onGetStartedClick() {
     const dialogRef = this.dialog.open(SignUpSignInComponent, {

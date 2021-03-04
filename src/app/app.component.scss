@@ -38,6 +38,7 @@
 
 .lang-select {
     width: 50px;
+    margin-left: 10px;
 }
 
 .collapsed-navbar {
@@ -48,10 +49,12 @@
     display: inline;
     font-size: 17px;
     padding-left: 1rem;
+    color: white;
 }
 
 .dark-mode-picker {
-    padding-top: 1rem;
+    padding-top: 15px;
+    padding-left: 10px;
 }
 
 .dark-mode-picker-dropdown {
@@ -60,4 +63,13 @@
 
 .nav-link {
     cursor: pointer;
+}
+
+.theme-change {
+    margin-left: 15px;
+}
+
+.dark-mode-text {
+    margin-top: 4px;
+    color: white;
 }

@@ -1,0 +1,58 @@
+<div class="" *ngIf="imageData">
+    <div class="row" *ngIf="imageData.telescope">
+        <div class="col-sm-3">
+            <p class="font-weight-bold">{{"Telescope"| translate}}</p>
+        </div>
+        <div class="col-sm-9">
+            <p>{{imageData.telescope}}</p>
+        </div>
+    </div>
+    <div class="row" *ngIf="imageData.mount">
+        <div class="col-sm-3">
+            <p class="font-weight-bold">{{"Mount"| translate}}</p>
+        </div>
+        <div class="col-sm-9">
+            <p>{{imageData.mount}}</p>
+        </div>
+    </div>
+    <div class="row" *ngIf="imageData.exposureTimes">
+        <div class="col-sm-3">
+            <p class="font-weight-bold">{{"Exposure"| translate}}</p>
+        </div>
+        <div class="col-sm-9">
+            <p>{{imageData.exposureTimes}}</p>
+        </div>
+    </div>
+    <div class="row" *ngIf="imageData.camera">
+        <div class="col-sm-3">
+            <p class="font-weight-bold">{{"Camera"| translate}}</p>
+        </div>
+        <div class="col-sm-9">
+            <p>{{imageData.camera}}</p>
+        </div>
+    </div>
+    <div class="row" *ngIf="imageData.object">
+        <div class="col-sm-3">
+            <p class="font-weight-bold">{{"Object"| translate}}</p>
+        </div>
+        <div class="col-sm-9">
+            <p>{{imageData.object}}</p>
+        </div>
+    </div>
+    <div class="row" *ngIf="imageData.filters">
+        <div class="col-sm-3">
+            <p class="font-weight-bold">{{"Filters"| translate}}</p>
+        </div>
+        <div class="col-sm-9">
+            <p>{{imageData.filters}}</p>
+        </div>
+    </div>
+    <div class="row" *ngIf="imageData.date">
+        <div class="col-sm-3">
+            <p class="font-weight-bold">{{"Date"| translate}}</p>
+        </div>
+        <div class="col-sm-9">
+            <p>{{imageData.date | date:'shortDate'}}</p>
+        </div>
+    </div>
+</div>

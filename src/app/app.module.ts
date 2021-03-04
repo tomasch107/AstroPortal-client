@@ -39,6 +39,9 @@ import { ConversationComponent } from './components/messages/conversation/conver
 import { ConversationListComponent } from './components/messages/conversation-list/conversation-list.component';
 import { MessagesComponent } from './components/messages/messages/messages.component';
 import { FollowingComponent } from './components/following/following.component';
+import { ImageDescriptionComponent } from './components/images/image-description/image-description.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { EditImageComponent } from './components/images/edit-image/edit-image.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +69,9 @@ import { FollowingComponent } from './components/following/following.component';
     ConversationComponent,
     ConversationListComponent,
     MessagesComponent,
-    FollowingComponent
+    FollowingComponent,
+    ImageDescriptionComponent,
+    EditImageComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +90,8 @@ import { FollowingComponent } from './components/following/following.component';
     ReactiveFormsModule,
     MaterialModule,
     NgxDropzoneModule,
-    MomentModule
+    MomentModule,
+    InfiniteScrollModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

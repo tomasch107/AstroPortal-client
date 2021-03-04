@@ -49,9 +49,8 @@ export class SignUpSignInComponent implements OnInit {
         this.reloadPage();
       },
       err => {
-        this.errorMessage = err.error.message;
+        this.errorMessage = "Bad credentials"
         this.isLoginFailed = true;
-        console.log(this.errorMessage)
       }
     );
   }

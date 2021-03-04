@@ -10,7 +10,8 @@
     "Submit": "Submit",
     "Save": "Save",
     "Lastname": "Last name",
-    "Nickname": "Profile Name",
+    "Nickname": "Profile name",
+    "ProfileDescription": "Description",
     "Country": "Country",
     "Required": "This is required",
     "Error": "Error",
@@ -24,7 +25,7 @@
     "Filters": "Filters",
     "Location": "Location",
     "Maximum": "Maximum",
-    "Chars": "Chars",
+    "Chars": "chars",
     "Exposure": "Exposure",
     "Watch": "Watch",
 
@@ -39,6 +40,7 @@
     "Watching": "Watched",
     "Send": "Send",
     "Message": "Message",
-    "Show conversations": "show/hide messages"
+    "Show conversations": "show/hide messages",
+    "Dark mode": "Dark mode"
 
 }

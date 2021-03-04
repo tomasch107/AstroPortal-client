@@ -38,6 +38,9 @@ export class ImagesService {
     return this.http.get<ImageData>(API_URL + 'images/getByIdAndUsername/' + id + "/" + username);
   }
 
+  getImageById(id: number): Observable<ImageData>{
+    return this.http.get<ImageData>(API_URL + 'images/getByIdAndUsername/' + id);
+  }
   getUserPublicData(username: string): Observable<UserProfile>
   {
     return this.http.get<UserProfile>(API_URL + 'images/getUserPublicData/' + username);

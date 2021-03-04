@@ -2,16 +2,16 @@
     <div *ngIf="imageData | async as imageData">
 
         <mat-card class="example-card">
-            <div class="d-flex header" *ngIf="userProfile | async as userProfile">
-                <img mat-card-avatar class="example-header-image" src="{{userProfile.profilePictureThumbnailUrl}}" (click)="onProfilePictureClick()">
+            <div class="d-flex header">
+                <img mat-card-avatar class="example-header-image" src="{{imageData.userProfileProfilePictureThumbnailUrl}}" (click)="onProfilePictureClick()">
                 <div class="title-nickname mr-auto p-2">
                     <div class="title">{{imageData.title}}</div>
-                    <a class="nickname" href={{profileHref}}>
-                        <p>@{{userProfile.nickname}}</p>
+                    <a class="nickname" href="users/{{imageData.userProfileNickname}}">
+                        <p>@{{imageData.userProfileNickname}}</p>
                     </a>
                 </div>
-                <div class="p-2">
-                    <i-feather name="map-pin" class="big-icon" style="color: black;"></i-feather>
+                <div class="p-2" *ngIf="imageData.location">
+                    <i-feather name="map-pin" class="big-icon" [ngStyle]="(theme==='Dark')?{color: 'white'}:{color: 'black'}"></i-feather>
                 </div>
                 <div class="subtitle p-2">
                     <p class="font-weight-normal text-right">{{imageData.location}}</p>
@@ -19,6 +19,11 @@
             </div>
             <img mat-card-image src="{{imageData.imageUrl}}" alt="Photo of a Shiba Inu">
             <mat-card-content>
+                <div class="d-flex  flex-row-reverse">
+                    <div class="p-2">
+                        <i-feather name="edit-3" [ngStyle]="(theme==='Dark')?{color: 'white'}:{color: 'black'}" class="big-icon"></i-feather>
+                    </div>
+                </div>
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="expansion-panel">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
@@ -29,38 +34,8 @@
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <p class="description">{{imageData.description}}</p>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <p class="font-weight-bold">{{"Telescope"| translate}}</p>
-                        </div>
-                        <div class="col-sm-9">
-                            <p>{{imageData.telescope}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <p class="font-weight-bold">{{"Mount"| translate}}</p>
-                        </div>
-                        <div class="col-sm-9">
-                            <p>{{imageData.mount}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <p class="font-weight-bold">{{"Exposure"| translate}}</p>
-                        </div>
-                        <div class="col-sm-9">
-                            <p>{{imageData.exposureTimes}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <p class="font-weight-bold">{{"Camera"| translate}}</p>
-                        </div>
-                        <div class="col-sm-9">
-                            <p>{{imageData.camera}}</p>
-                        </div>
-                    </div>
+                    <app-image-description [imageData]=imageData></app-image-description>
+
                 </mat-expansion-panel>
 
             </mat-card-content>

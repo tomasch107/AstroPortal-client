@@ -1,80 +1,71 @@
 <div class="container" id="container-sign">
     <div class="form-container sign-up-container" id="sign-up-container">
         <form name="formSignUp" (ngSubmit)="f.form.valid && onSignUpSubmit()" #f="ngForm" novalidate>
-            <h1>Create Account</h1>
-            <div class="social-container">
-                <img src="../../../assets/SVGs/facebook-icon.svg" width="35" alt="" class="social facebook-icon">
-                <img src="../../../assets/SVGs/google-icon.svg" width="35" alt="" class="social google-icon">
-                <img src="../../../assets/SVGs/linkedin-icon.svg" width="35" alt="" class="social linkedin-icon">
-            </div>
-            <span>or use your email for registration</span>
+            <h1>{{"Create Account" | translate}}</h1>
+
             <input type="text" placeholder="Name" name="username" [(ngModel)]="formSignUp.username" required minlength="3" maxlength="20" #username="ngModel" />
             <div class="text-danger" *ngIf="f.submitted && username.invalid">
-                <div *ngIf="username.errors.required">Username is required</div>
+                <div *ngIf="username.errors.required">{{"Username is required" | translate}}</div>
                 <div *ngIf="username.errors.minlength">
-                    Username must be at least 3 characters
+                    {{"Username must be at least 3 characters" | translate}}
                 </div>
                 <div *ngIf="username.errors.maxlength">
-                    Username must be at most 20 characters
+                    {{"Username must be at most 20 characters" | translate}}
                 </div>
             </div>
             <input type="email" placeholder="Email" name="email" [(ngModel)]="formSignUp.email" required email #email="ngModel" />
             <div class="text-danger" *ngIf="f.submitted && email.invalid">
-                <div *ngIf="email.errors.required">Email is required</div>
+                <div *ngIf="email.errors.required">{{"Email is required" | translate}}</div>
                 <div *ngIf="email.errors.email">
-                    Email must be a valid email address
+                    {{"Email must be a valid email address" | translate}}
                 </div>
             </div>
             <input type="password" placeholder="Password" class="form-control" name="password" [(ngModel)]="formSignUp.password" required minlength="6" #password="ngModel" />
             <div class="text-danger" *ngIf="f.submitted && password.invalid">
-                <div *ngIf="password.errors.required">Password is required</div>
+                <div *ngIf="password.errors.required">{{"Password is required" | translate}}</div>
                 <div *ngIf="password.errors.minlength">
-                    Password must be at least 6 characters
+                    {{"Password must be at least 6 characters" | translate}}
                 </div>
             </div>
             <button>Sign Up</button>
             <div class="text-danger" *ngIf="isSignUpFailed">
-                {{errorMessage}}
+                {{errorMessage | translate}}
             </div>
-            <a class="mobile-sign-in" (click)="onSignInMobileClick()">Sign in</a>
+            <a class="mobile-sign-in" (click)="onSignInMobileClick()">{{"Sign In" | translate}}</a>
         </form>
     </div>
     <div class="form-container sign-in-container" id="sign-in-container">
         <form name="formLogIn" (ngSubmit)="fL.form.valid && onLoginSubmit()" #fL="ngForm" novalidate>
-            <h1>Sign in</h1>
-            <div class="social-container">
-                <img src="../../../assets/SVGs/facebook-icon.svg" width="35" alt="" class="social facebook-icon">
-                <img src="../../../assets/SVGs/google-icon.svg" width="35" alt="" class="social google-icon">
-                <img src="../../../assets/SVGs/linkedin-icon.svg" width="35" alt="" class="social linkedin-icon">
-            </div>
-            <span>or use your account</span>
+            <h1>{{"Sign in" | translate}}</h1>
             <input type="username" placeholder="Username" name="loginUsername" [(ngModel)]="formLogIn.username" required #loginUsername="ngModel" />
             <div class="text-danger" role="alert" *ngIf="fL.submitted && loginUsername.invalid">
-                Username is required!
+                {{"Username is required!" | translate}}
             </div>
             <input type="password" placeholder="Password" name="loginPassword" [(ngModel)]="formLogIn.password" required minlength="6" #loginPassword="ngModel" />
             <div class="text-danger" role="alert" *ngIf="fL.submitted && loginPassword.invalid">
-                <div *ngIf="loginPassword.errors.required">Password is required</div>
+                <div *ngIf="loginPassword.errors.required">{{"Password is required" | translate}}</div>
                 <div *ngIf="loginPassword.errors.minlength">
-                    Password must be at least 6 characters
+                    {{"Password must be at least 6 characters" | translate}}
                 </div>
             </div>
-            <a href="#">Forgot your password?</a>
-            <button type="submit">Sign In</button>
-            <a class="mobile-sign-up" (click)="onSignUpMobileClick()">Sign up</a>
+            <button type="submit">{{"Sign in" | translate}}</button>
+            <div class="text-danger" *ngIf="isLoginFailed">
+                {{errorMessage | translate}}
+            </div>
+            <a class="mobile-sign-up" (click)="onSignUpMobileClick()">{{"Sign Up" | translate}}</a>
         </form>
     </div>
     <div class="overlay-container">
         <div class="overlay ">
             <div class="overlay-panel overlay-left ">
-                <h1>Welcome Back!</h1>
-                <p>To keep connected with us please login with your personal info</p>
-                <button class="ghost " id="signIn " (click)="onSignInClick()">Sign In</button>
+                <h1>{{"Welcome back" | translate}}</h1>
+                <p>{{"To keep connected with us please login with your personal info" | translate}}</p>
+                <button class="ghost " id="signIn " (click)="onSignInClick()">{{"Sign In" | translate}}</button>
             </div>
             <div class="overlay-panel overlay-right ">
-                <h1>Hello, Friend!</h1>
-                <p>Enter your personal details and start journey with us</p>
-                <button class="ghost " id="signUp " (click)="onSignUpClick()">Sign Up</button>
+                <h1>{{"Hello, Friend!" | translate}}</h1>
+                <p>{{"Enter your personal details and start journey with us" | translate}}</p>
+                <button class="ghost " id="signUp " (click)="onSignUpClick()">{{"Sign Up" | translate}}</button>
             </div>
         </div>
     </div>

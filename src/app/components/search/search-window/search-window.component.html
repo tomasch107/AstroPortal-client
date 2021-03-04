@@ -1,10 +1,10 @@
-<div class="container">
-    <app-search-from class="search-form" (search)="onSearch($event, 0, 10)"></app-search-from>
+<div class="container" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+    <app-search-from class="search-form" (search)="onNewSearch($event, 1, this.pageSize)"></app-search-from>
 
-    <div class="row" *ngIf="images | async as imageList">
-        <div *ngFor="let item of imageList" class="col-lg-3 col-6">
+    <div class="row" *ngIf="images">
+        <div *ngFor="let item of images" class="col-lg-12 col-6">
             <div class="img-wrapper">
-                <div class="img-hover-zoom" (click)="onImageClick(item)">
+                <div class="img-hover-zoom" [routerLink]="'/users/' + item.userProfileNickname + '/' + item.id">
                     <img class="img-fluid img-center" src={{item.thumbnailUrl}} />
                     <div class="img-title text-center carousel-caption">
                         <h1 class="display-4">{{item.title}}</h1>
@@ -13,6 +13,4 @@
             </div>
         </div>
     </div>
-    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageEvent($event)">
-    </mat-paginator>
 </div>

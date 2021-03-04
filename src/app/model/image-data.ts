@@ -16,4 +16,5 @@ export interface ImageData {
   userProfileId: number;
   object: string;
   userProfileNickname: string;
+  userProfileProfilePictureThumbnailUrl: string;
 }

@@ -6,6 +6,7 @@ import { UserService } from '../../../_services/user.service';
 import { ImageData } from '../../model/file-data';
 import { MessageService } from '../../../_services/error-service.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ThemeService } from '../../../_services/theme.service';
 
 @Component({
   selector: 'app-upload-profile-picture',
@@ -26,7 +27,9 @@ export class UploadProfilePictureComponent implements OnInit {
   files: File[] = [];
   profileId;
   fileSelected=false;
+  theme='';
   constructor(
+    private themeService: ThemeService,
     private uploadService: UploadFileService,
     private userProfileService: UserService,
     private messageService: MessageService,
@@ -48,6 +51,8 @@ export class UploadProfilePictureComponent implements OnInit {
     this.fileSelected = false;
   }
   ngOnInit(): void {
+    this.theme = this.themeService.getTheme()
+    this.themeService.themeChanged$.subscribe(data=>this.theme=data)
   }
   selectFile(event) {
     this.selectedFiles = event.target.files;
@@ -90,5 +95,14 @@ export class UploadProfilePictureComponent implements OnInit {
 
   onDrop(files: FileList) {
     this.selectedFiles = files;
+  }
+
+  getDropzoneStyle(){
+    if (this.theme ==='Dark'){
+      return {
+        "background" : "gray",
+        "border": "2px dashed #FFFFFF"
+      }
+  }
   }
 }

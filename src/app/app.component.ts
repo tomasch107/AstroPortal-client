@@ -4,6 +4,7 @@ import { TokenStorageService } from 'src/_services/token-storage.service';
 import { SignUpSignInComponent } from './components/sign-up-sign-in/sign-up-sign-in.component';
 import { TranslateService } from '@ngx-translate/core';
 import { LangIconValues } from './model/lang-icon-values';
+import { ThemeService } from '../_services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -20,13 +21,14 @@ export class AppComponent implements OnInit {
   isDarkTheme: boolean = false;
   nodeType: any;
   nodeTypes: LangIconValues[] = [];
-
+  title = 'AstroPortal';
 
   constructor(
     private tokenStorageService: TokenStorageService,
     public dialog: MatDialog,
     public translate: TranslateService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private themeService: ThemeService
   ) {
     translate.addLangs(['en', 'pl']);
     translate.setDefaultLang('en');
@@ -77,7 +79,7 @@ export class AppComponent implements OnInit {
 
   logout(): void {
     this.tokenStorageService.signOut();
-    window.location.reload();
+    window.location.href = '/home';
   }
 
   onProfileClick(): void {
@@ -86,6 +88,11 @@ export class AppComponent implements OnInit {
     } else {
       this.openSignInComponent();
     }
+  }
+
+  onProfileMenuClick(){
+    if (!this.isLoggedIn)
+    this.openSignInComponent();
   }
 
   openSignInComponent(): void {
@@ -108,5 +115,7 @@ export class AppComponent implements OnInit {
     else
       this.renderer.removeClass(document.body, 'dark-theme-mode');
     localStorage.setItem('theme', this.isDarkTheme ? "Dark" : "Light");
+    this.themeService.setTheme(this.isDarkTheme ? "Dark" : "Light");
+
   }
 }

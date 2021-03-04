@@ -18,7 +18,7 @@ $candy-app-theme: mat-light-theme(( color: ( primary: $candy-app-primary, accent
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($candy-app-theme);
-$candy-primary-dark: mat-palette($mat-indigo);
+$candy-primary-dark: mat-palette($mat-pink);
 $candy-accent-dark: mat-palette($mat-pink, A200, A100, A400);
 // The warn palette is optional (defaults to red).
 $candy-warn-dark: mat-palette($mat-red);

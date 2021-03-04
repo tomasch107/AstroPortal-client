@@ -1,4 +1,4 @@
-<ngx-dropzone (change)="onSelect($event)" [multiple]="false" accept="image/jpeg,image/jpg,image/png,image/gif" class="dropzone">
+<ngx-dropzone (change)="onSelect($event)" [multiple]="false" accept="image/jpeg,image/jpg,image/png,image/gif" class="dropzone" [ngStyle]="getDropzoneStyle()">
     <ngx-dropzone-label>
         <i-feather name="user" class="big-icon" style="color: black;"></i-feather>
     </ngx-dropzone-label>
