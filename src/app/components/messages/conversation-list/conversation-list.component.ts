@@ -16,7 +16,7 @@ export class ConversationListComponent implements OnInit {
   conversations: Conversation[];
   profileId: number;
   selectedOptions;
-  @Output() conversationChange = new EventEmitter<number>();
+  @Output() conversationChange = new EventEmitter<Conversation>();
   @Input() newConversation: Conversation;
 
   constructor(private conversationService: ConversationService,
@@ -31,6 +31,15 @@ export class ConversationListComponent implements OnInit {
     (err) => {
       this.messageService.showError(err);
     })
+
+    this.conversationService.conversationChanged$.subscribe(data => {
+      for (let entry of this.conversations) {
+        if (entry.id === data.id)
+        {
+          entry.name = data.name;
+        }
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges){
@@ -39,7 +48,21 @@ export class ConversationListComponent implements OnInit {
 
   onSelectionChange(event)
   {
-    this.conversationChange.emit(event.option._value.id);
+    let conversation = event.option._value;
+
+    let id = event.option._value.id;
+    this.conversationChange.emit(conversation);
+
+
+    for (let entry of this.conversations) {
+      if (entry.id === id)
+      {
+        let index = entry.readId.indexOf(this.profileId)
+        entry.readId.splice(index, 1);
+      }
+    }
+
+    this.conversationService.updateUnreadConversationCount(this.profileId);
   }
   onNewConversation(newConversation)
   {
@@ -49,7 +72,20 @@ export class ConversationListComponent implements OnInit {
         {
           this.conversations.unshift(newConversation);
         }
-        this.conversationChange.emit(newConversation.id);
+        this.conversationChange.emit(newConversation);
     }
+  }
+
+  isConversationRead(conversation){
+    let array: Array<number> = conversation.readId;
+
+    for (let entry of array) {
+      if (entry === this.profileId)
+      {
+        console.log(entry);
+        return true;
+      }
+    }
+    return false;
   }
 }

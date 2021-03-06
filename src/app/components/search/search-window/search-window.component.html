@@ -16,3 +16,10 @@
         <mat-spinner *ngIf="loading"></mat-spinner>
 
     </div>
+    <div *ngIf="isEndOfImageList" class="d-flex justify-content-center">
+        <div>
+            <i-feather name="check-circle" class="circle-icon" [ngStyle]="(theme==='Dark')?{color: 'white'}:{color: 'black'}"></i-feather>
+            <p class="no-images">{{"There is no more images to show" | translate}}</p>
+        </div>
+    </div>
+</div>

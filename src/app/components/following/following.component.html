@@ -4,8 +4,8 @@
         <mat-list-option *ngFor="let profile of watched" [value]="profile">
             <div class="inline-list">
                 <img src="{{profile.watchedUserProfileProfilePictureThumbnailUrl}}" class="mat-card-avatar conversation-avatar" alt="">
-                <div class="conversation-name"> {{profile.watchedUserProfileNickname}}
-                </div>
+                <div class="conversation-name"> {{profile.watchedUserProfileNickname}} </div>
+                <div class="conversation-name" *ngIf="profileId === profile.watchedUserProfileId"> {{"(You)" | translate}}</div>
             </div>
         </mat-list-option>
     </mat-selection-list>

@@ -6,6 +6,7 @@ import { TokenStorageService } from '../../../_services/token-storage.service';
 import { SearchService } from '../../../_services/search.service';
 import { MessageService } from '../../../_services/error-service.service';
 import { ImageData } from 'src/app/model/image-data';
+import { ThemeService } from '../../../_services/theme.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -23,11 +24,15 @@ export class HomeComponent implements OnInit {
   currentPage: number;
   totalItems: number;
   totalPages: number;
+  isEndOfImageList = false;
+  theme='';
+
   constructor(private userService: UserService,
      public dialog: MatDialog,
      private token: TokenStorageService,
      private searchService: SearchService,
-     private messageService: MessageService) {
+     private messageService: MessageService,
+     private themeService: ThemeService) {
 
       this.images = new Array<ImageData>();
       this.currentPage = -1;
@@ -36,6 +41,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = this.token.getToken() != null;
     this.profileId = + this.token.getCurrentProfileId();
+    this.theme = this.themeService.getTheme()
+    this.themeService.themeChanged$.subscribe(data=>this.theme=data)
   }
   onGetStartedClick() {
     const dialogRef = this.dialog.open(SignUpSignInComponent, {
@@ -54,7 +61,7 @@ export class HomeComponent implements OnInit {
       if (this.images.length === this.totalItems)
       {
         this.getAllImages = true;
-        console.log(this.totalItems)
+        this.onScroll();
       }
     },
     (err) => {
@@ -84,7 +91,8 @@ export class HomeComponent implements OnInit {
       var nextPage = 0;
     else
       nextPage = parseInt(this.currentPage.toString()) + parseInt('1')
-
+    if (this.totalItems && this.images.length >= this.totalItems)
+      this.isEndOfImageList = true;
     if (this.isFirstGettingAll || (!this.totalItems || this.images.length < this.totalItems))
     {
       this.getNewestImages(nextPage , this.pageSize)

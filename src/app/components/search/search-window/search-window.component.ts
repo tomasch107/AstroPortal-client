@@ -5,6 +5,7 @@ import { ImageData } from 'src/app/model/image-data';
 import { MessageService } from 'src/_services/error-service.service';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
+import { ThemeService } from '../../../../_services/theme.service';
 
 @Component({
   selector: 'app-search-window',
@@ -20,11 +21,14 @@ export class SearchWindowComponent implements OnInit {
   pageEvent: PageEvent;
   totalPages=0;
   searchRequestData;
+  isEndOfImageList = false;
+  theme='';
 
   constructor(private searchService: SearchService,
               private messageService: MessageService,
               private router: Router,
               private route: ActivatedRoute,
+              private themeService: ThemeService
               ) {this.images = new Array<ImageData>();}
 
   ngOnInit(): void {
@@ -35,6 +39,8 @@ export class SearchWindowComponent implements OnInit {
         this.onSearch(this.searchRequestData, i, pageSize)
       }
     }
+    this.theme = this.themeService.getTheme()
+    this.themeService.themeChanged$.subscribe(data=>this.theme=data)
   }
 
   private getParamsFromRoute() {
@@ -90,6 +96,8 @@ export class SearchWindowComponent implements OnInit {
         this.length = data.totalItems
         this.totalPages = data.totalPages
         this.myMethodChangingQueryParams();
+        if (this.length && this.images.length >= this.length)
+        this.isEndOfImageList = true;
       },
       (err) => {
         this.messageService.showError(err);

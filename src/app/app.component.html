@@ -9,9 +9,10 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav navbar-right ">
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="isLoggedIn">
                     <a class="nav-link pr-3" href="/messages">
                         <i-feather name="mail" class="big-icon" style="color: white;"></i-feather>
+                        <span *ngIf="unReadConversationCount > 0" class=" hide-text" matBadge="{{unReadConversationCount}}" matBadgeSize="small"></span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -19,7 +20,7 @@
                         <i-feather name="search" class="big-icon" style="color: white;"></i-feather>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="isLoggedIn">
                     <a class="nav-link pr-3" href="/uploadimage">
                         <i-feather name="camera" class="big-icon" style="color: white;"></i-feather>
                     </a>
@@ -40,6 +41,10 @@
                             <button mat-menu-item (click)="logout()">
                         <mat-icon>exit_to_app</mat-icon>
                         <span>{{"Logout" | translate}}</span>
+                      </button>
+                            <button mat-menu-item (click)="viewProfileClick()">
+                        <mat-icon>person_pin</mat-icon>
+                        <span>{{"View profile" | translate}}</span>
                       </button>
                         </mat-menu>
                     </div>
@@ -72,7 +77,7 @@
 
 <div class="collapsed-navbar collapse navbar-collapse justify-content-end bg-dark navbar-dark" id="navbarNavDropdown">
     <ul class="navbar-nav navbar-right ">
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="isLoggedIn">
             <a class="nav-link pr-3" href="/messages">
                 <i-feather name="mail" class="big-icon" style="color: white;"></i-feather>
                 <p class="menu-description"> Messages</p>
@@ -84,17 +89,33 @@
                 <p class="menu-description"> Search</p>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="isLoggedIn">
             <a class="nav-link pr-3" href="/uploadimage">
                 <i-feather name="camera" class="big-icon" style="color: white;"></i-feather>
                 <p class="menu-description"> Upload photo</p>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link pr-3" (click)="onProfileClick()">
-                <i-feather name="user" class="big-icon" style="color: white;"></i-feather>
-                <p class="menu-description"> User profile</p>
-            </a>
+        <li class="nav-item ">
+            <div class="profile-menu">
+                <button *ngIf="isLoggedIn" mat-icon-button [matMenuTriggerFor]="menu" (click)="onProfileMenuClick();">
+          <i-feather name="user" class="big-icon" style="color: white;"></i-feather>
+        </button>
+                <button *ngIf="!isLoggedIn" mat-icon-button (click)="onProfileMenuClick();">
+          <i-feather name="user" class="big-icon" style="color: white;"></i-feather>
+        </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="onProfileClick()">
+                  <mat-icon>edit</mat-icon>
+                <span >{{"Edit profile" | translate}}</span>
+          </button>
+                    <button mat-menu-item (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>{{"Logout" | translate}}</span>
+          </button>
+                </mat-menu>
+                <p [matMenuTriggerFor]="menu" (click)="onProfileMenuClick();" class="menu-description cursor-pointer"> Profile</p>
+
+            </div>
         </li>
         <li class="nav-item">
             <mat-form-field class="lang-select">
@@ -111,7 +132,7 @@
             <p class="menu-description"> {{"Language change" | translate}}</p>
 
         </li>
-        <li class="nav-item">
+        <li class="nav-item theme-change-mobile">
             <mat-slide-toggle class="dark-mode-picker-dropdown" [(ngModel)]="isDarkTheme" labelPosition="before" (change)="storeThemeSelection()"></mat-slide-toggle>
             <p class="menu-description"> {{"Dark mode" | translate}}</p>
 

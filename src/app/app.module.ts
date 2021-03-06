@@ -42,6 +42,8 @@ import { FollowingComponent } from './components/following/following.component';
 import { ImageDescriptionComponent } from './components/images/image-description/image-description.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { EditImageComponent } from './components/images/edit-image/edit-image.component';
+import { ChangeConversationNameComponent } from './components/messages/change-conversation-name/change-conversation-name.component';
+import { ConversationParticipantsComponent } from './components/messages/conversation-participants/conversation-participants.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +73,9 @@ import { EditImageComponent } from './components/images/edit-image/edit-image.co
     MessagesComponent,
     FollowingComponent,
     ImageDescriptionComponent,
-    EditImageComponent
+    EditImageComponent,
+    ChangeConversationNameComponent,
+    ConversationParticipantsComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
 const PROFILE_ID = 'current-profile-id';
+const PROFILE_NICKNAME = 'current-profile-nickname';
+
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +30,7 @@ export class TokenStorageService {
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
     this.saveCurrentProfileId(user.defaultProfileId)
+    this.saveCurrentProfileNickname(user.profileNickname)
   }
 
   public getUser(): any {
@@ -38,7 +41,17 @@ export class TokenStorageService {
     localStorage.setItem(PROFILE_ID, profileId);
   }
 
+
   public getCurrentProfileId(): string {
     return localStorage.getItem(PROFILE_ID);
+  }
+
+  public saveCurrentProfileNickname(profileNickname: string)
+  {
+    localStorage.setItem(PROFILE_NICKNAME, profileNickname)
+  }
+
+  public getCurrentNickname(): string {
+    return localStorage.getItem(PROFILE_NICKNAME);
   }
 }

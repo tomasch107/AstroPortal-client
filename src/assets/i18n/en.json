@@ -45,7 +45,8 @@
     "Watching": "Watched",
     "Send": "Send",
     "Message": "Message",
-    "Show conversations": "show/hide messages",
+    "Show conversations": "show/hide users",
     "Dark mode": "Dark mode"
+    "name": "Name"
 
 }

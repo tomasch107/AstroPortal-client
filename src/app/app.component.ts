@@ -5,6 +5,7 @@ import { SignUpSignInComponent } from './components/sign-up-sign-in/sign-up-sign
 import { TranslateService } from '@ngx-translate/core';
 import { LangIconValues } from './model/lang-icon-values';
 import { ThemeService } from '../_services/theme.service';
+import { ConversationService } from '../_services/conversation.service';
 
 @Component({
   selector: 'app-root',
@@ -22,13 +23,15 @@ export class AppComponent implements OnInit {
   nodeType: any;
   nodeTypes: LangIconValues[] = [];
   title = 'AstroPortal';
-
+  unReadConversationCount: number=0;
+  profileId;
   constructor(
     private tokenStorageService: TokenStorageService,
     public dialog: MatDialog,
     public translate: TranslateService,
     private renderer: Renderer2,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private conversationService: ConversationService
   ) {
     translate.addLangs(['en', 'pl']);
     translate.setDefaultLang('en');
@@ -40,17 +43,15 @@ export class AppComponent implements OnInit {
     this.storeThemeSelection();
     this.configureLanguage();
 
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    this.isLoggedIn = this.tokenStorageService.getToken() != null;
+    this.profileId = + this.tokenStorageService.getCurrentProfileId()
 
-    if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.roles = user.roles;
-
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
-
-      this.username = user.username;
-    }
+    this.conversationService.unReadConversationIdUpdate$.subscribe(data => {
+      this.unReadConversationCount = this.conversationService.getUnreadConversationCount()
+      console.log('unreadCount ' , this.unReadConversationCount)
+    })
+    if(this.isLoggedIn)
+      this.conversationService.updateUnreadConversationCount(this.profileId);
   }
 
   private configureLanguage() {
@@ -87,6 +88,14 @@ export class AppComponent implements OnInit {
       window.location.href = '/profile';
     } else {
       this.openSignInComponent();
+    }
+  }
+
+  viewProfileClick(): void {
+    var nickname = this.tokenStorageService.getCurrentNickname()
+    if (this.isLoggedIn) {
+      if (nickname)
+        window.location.href = '/users/' + nickname;
     }
   }
 

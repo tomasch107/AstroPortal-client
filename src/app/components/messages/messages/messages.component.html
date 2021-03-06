@@ -1,4 +1,21 @@
 <mat-card class="card-messages-container">
+    <div class="row justify-content-end">
+        <div class="profile-menu">
+            <button *ngIf="conversation" mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon class="setting-icon" >settings</mat-icon>
+        </button>
+            <mat-menu #menu="matMenu">
+                <button *ngIf="conversation && conversation.participants && conversation.participants.length > 2" mat-menu-item (click)="changeConversationName()">
+              <mat-icon>edit</mat-icon>
+            <span>{{"Change conversation name" | translate}}</span>
+        </button>
+                <button mat-menu-item (click)="vievConversationUsers()">
+        <mat-icon>person_pin</mat-icon>
+        <span>{{"View users" | translate}}</span>
+      </button>
+            </mat-menu>
+        </div>
+    </div>
     <div #scrollMe *ngIf="messages" class="messages-container" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolledUp)="onScroll()" [scrollWindow]="false">
         <mat-spinner *ngIf="loading"></mat-spinner>
 

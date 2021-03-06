@@ -21,3 +21,7 @@ body {
 .cursor-pointer {
     cursor: pointer;
 }
+
+::ng-deep .dialog-scroll>mat-dialog-container {
+    max-height: 100vh;
+}

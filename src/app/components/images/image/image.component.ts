@@ -196,7 +196,13 @@ export class ImageComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe( data => {
           if(data.title)
+          {
             this.imageData = data;
+          if (data.description != null && data.description.length > 30)
+            this.cuttedDescription = data.description.substring(0, 30);
+          else
+            this.cuttedDescription = data.description;
+          }
       });
     }
 

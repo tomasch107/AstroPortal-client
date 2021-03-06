@@ -5,6 +5,10 @@ import { TokenStorageService } from '../../../../_services/token-storage.service
 import { Observable, of } from 'rxjs';
 import { Message } from 'src/app/model/message';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Conversation } from 'src/app/model/conversation';
+import { MatDialog } from '@angular/material/dialog';
+import { ChangeConversationNameComponent } from '../change-conversation-name/change-conversation-name.component';
+import { ConversationParticipantsComponent } from '../conversation-participants/conversation-participants.component';
 
 @Component({
   selector: 'app-messages',
@@ -12,6 +16,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./messages.component.scss']
 })
 export class MessagesComponent implements OnInit {
+  @Input() conversation: Conversation;
   @Input() conversationId: number;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
@@ -31,13 +36,14 @@ export class MessagesComponent implements OnInit {
   constructor(private conversationService: ConversationService,
     private messageService: MessageService,
     private tokenStorageService: TokenStorageService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    public dialog: MatDialog) {
       this.messages = new Array<Message>();
       this.newMessages = new Array<Message>();
      }
 
   ngOnChanges(changes: SimpleChanges){
-    this.onConversationChange(changes.conversationId.currentValue);
+    this.onConversationChange(changes.conversation.currentValue);
   }
   ngOnInit(): void {
     this.profileId = + this.tokenStorageService.getCurrentProfileId();
@@ -49,9 +55,11 @@ export class MessagesComponent implements OnInit {
     this.scrollToBottom();
   }
 
-  onConversationChange(conversationId: number){
-    if (this.profileId == null || conversationId == null)
+  onConversationChange(conversation: Conversation){
+    if (this.profileId == null || conversation == null)
       return;
+      let conversationId = conversation.id
+
       this.loading = true;
       this.disableScrollDown = false;
     this.conversationService.getMessages(conversationId,this.profileId, 0, this.pageSize).subscribe(data => {
@@ -73,7 +81,7 @@ export class MessagesComponent implements OnInit {
     if (profileId == null || conversationId == null || page < -1)
       return;
     this.loading = true;
-    this.onConversationChange(this.conversationId);
+    this.onConversationChange(this.conversation);
   }
   getMessages(conversationId, profileId, page, size)
   {
@@ -82,6 +90,7 @@ export class MessagesComponent implements OnInit {
     this.loading = true;
 
     this.conversationService.getMessages(conversationId,profileId,page,size).subscribe(data => {
+      this.conversationService.updateUnreadConversationCount(this.profileId);
       this.totalPages = data.totalPages;
       this.length = data.totalItems
       this.pageIndex = page;
@@ -131,5 +140,30 @@ export class MessagesComponent implements OnInit {
     try {
         this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
     } catch(err) { }
+}
+
+vievConversationUsers(){
+  const dialogRef = this.dialog.open(ConversationParticipantsComponent, {
+    panelClass: 'dialog-scroll',
+    data: {
+      conversation: this.conversation,
+      profileId: this.profileId
+    },
+  });
+}
+
+changeConversationName(){
+  const dialogRef = this.dialog.open(ChangeConversationNameComponent, {
+    panelClass: 'dialog-scroll',
+    data: {
+      conversation: this.conversation,
+      profileId: this.profileId
+    },
+  });
+
+  dialogRef.afterClosed().subscribe( data => {
+      if (data.id)
+        this.conversationService.conversationChanged$.emit(data);
+  });
 }
 }

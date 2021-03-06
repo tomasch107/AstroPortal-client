@@ -5,6 +5,7 @@
     "Email": "Email adres",
     "PhoneNo": "Numer telefonu",
     "Password": "Hasło",
+	"Username": "Nazwa użytkownika",
     "Bio": "Bio",
     "TermsConditions": "Zgadzam się na warunki",
     "Submit": "Zatwierdź",
@@ -42,7 +43,7 @@
     "Watching": "Obserwujesz",
     "Send": "Wyślij",
     "Message": "Wiadomość",
-    "Show conversations": "Pokaż/ukryj wiadomości",
+    "Show conversations": "Pokaż/ukryj użytkowników",
     "Object": "Obiekt",
     "Search by criteria": "Szczegółowe wyszukiwanie",
     "Search": "Szukaj",
@@ -56,6 +57,8 @@
 	"Password is required": "Hasło jest wymagane",
 	"Email is required": "Email jest wymagany",
 	"Sign In": "Zaloguj się",
+	"Sign in": "Zaloguj się",
+
 	"Username is required!": "Nazwa użytkownika jest wymagana",
 	"Sign Up": "Zarejestruj się",
 	"Welcome back": "Witaj ponownie",
@@ -68,8 +71,18 @@
 	"Get started": "Rozpocznij",
 	"Discover universe with us": "Odkrywaj wszechświat z nami",
 	"Scroll down for more": "Zjedź na dół po więcej",
-
-
-    "Dark mode": "Tryb ciemny"
+	"Logout": "Wyloguj się",
+	"Edit profile": "Edytuj profil",
+	"Drop image": "Przeciągnij/upuść obraz",
+	"View profile": "Zobacz profil",
+	"There is no more images to show": "Brak następnych zdjęć do wyświetlienia",
+	"New conversation": "Nowa konwersacja",
+	"View users": "Zobacz użytkowników",
+	"Change conversation name": "Zmień nazwę konwersacji",
+	"Cancel": "Anuluj",
+	"Open conversation": "Otwórz konwersację",
+	"(You)": "(Ty)",
+    "Dark mode": "Tryb ciemny",
+    "name": "Nazwa"
 
 }

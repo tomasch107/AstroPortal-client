@@ -3,7 +3,7 @@
         <form name="formSignUp" (ngSubmit)="f.form.valid && onSignUpSubmit()" #f="ngForm" novalidate>
             <h1>{{"Create Account" | translate}}</h1>
 
-            <input type="text" placeholder="Name" name="username" [(ngModel)]="formSignUp.username" required minlength="3" maxlength="20" #username="ngModel" />
+            <input type="text" placeholder="{{'Username' | translate}}" name="username" [(ngModel)]="formSignUp.username" required minlength="3" maxlength="20" #username="ngModel" />
             <div class="text-danger" *ngIf="f.submitted && username.invalid">
                 <div *ngIf="username.errors.required">{{"Username is required" | translate}}</div>
                 <div *ngIf="username.errors.minlength">
@@ -20,14 +20,14 @@
                     {{"Email must be a valid email address" | translate}}
                 </div>
             </div>
-            <input type="password" placeholder="Password" class="form-control" name="password" [(ngModel)]="formSignUp.password" required minlength="6" #password="ngModel" />
+            <input type="password" placeholder="{{'Password' | translate}}" class="form-control" name="password" [(ngModel)]="formSignUp.password" required minlength="6" #password="ngModel" />
             <div class="text-danger" *ngIf="f.submitted && password.invalid">
                 <div *ngIf="password.errors.required">{{"Password is required" | translate}}</div>
                 <div *ngIf="password.errors.minlength">
                     {{"Password must be at least 6 characters" | translate}}
                 </div>
             </div>
-            <button>Sign Up</button>
+            <button>{{"Sign Up" | translate}}</button>
             <div class="text-danger" *ngIf="isSignUpFailed">
                 {{errorMessage | translate}}
             </div>
@@ -37,11 +37,11 @@
     <div class="form-container sign-in-container" id="sign-in-container">
         <form name="formLogIn" (ngSubmit)="fL.form.valid && onLoginSubmit()" #fL="ngForm" novalidate>
             <h1>{{"Sign in" | translate}}</h1>
-            <input type="username" placeholder="Username" name="loginUsername" [(ngModel)]="formLogIn.username" required #loginUsername="ngModel" />
+            <input type="username" placeholder="{{'Username' | translate}}" name="loginUsername" [(ngModel)]="formLogIn.username" required #loginUsername="ngModel" />
             <div class="text-danger" role="alert" *ngIf="fL.submitted && loginUsername.invalid">
                 {{"Username is required!" | translate}}
             </div>
-            <input type="password" placeholder="Password" name="loginPassword" [(ngModel)]="formLogIn.password" required minlength="6" #loginPassword="ngModel" />
+            <input type="password" placeholder="{{'Password' | translate}}" name="loginPassword" [(ngModel)]="formLogIn.password" required minlength="6" #loginPassword="ngModel" />
             <div class="text-danger" role="alert" *ngIf="fL.submitted && loginPassword.invalid">
                 <div *ngIf="loginPassword.errors.required">{{"Password is required" | translate}}</div>
                 <div *ngIf="loginPassword.errors.minlength">

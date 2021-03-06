@@ -19,7 +19,7 @@ export class ConversationComponent implements OnInit {
   profileId;
   watchedProfiles;
   newConversation: Conversation;
-
+  conversation: Conversation;
   constructor(public dialog: MatDialog,
               private tokenService: TokenStorageService,
               private conversationService: ConversationService,
@@ -29,8 +29,9 @@ export class ConversationComponent implements OnInit {
    this.profileId = + this.tokenService.getCurrentProfileId()
 
   }
-  onConversationIdChange(event){
-    this.conversationId = event;
+  onConversationIdChange(event: Conversation){
+    this.conversationId = event.id;
+    this.conversation = event;
   }
 
   createNewConverstaion(){

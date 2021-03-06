@@ -6,15 +6,15 @@
 
         <div class="example-sidenav-content">
             <div class="buttons">
-                <button type="button" mat-button (click)="drawer.toggle()">
+                <button color="primary" type="button" mat-raised-button (click)="drawer.toggle()">
               {{"Show conversations" | translate}}
               </button>
-                <button type="button" mat-button (click)="createNewConverstaion()">
+                <button color="primary" type="button" mat-raised-button (click)="createNewConverstaion()">
                 {{"New conversation" | translate}}
                 </button>
             </div>
 
-            <app-messages [conversationId]="conversationId"></app-messages>
+            <app-messages [conversationId]="conversationId" [conversation]="conversation"></app-messages>
         </div>
 
     </mat-drawer-container>
