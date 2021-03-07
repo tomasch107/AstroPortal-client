@@ -2,9 +2,8 @@
     <mat-selection-list #shoes [multiple]="false" (selectionChange)="onSelectionChange($event)" [(ngModel)]="selectedOptions">
         <mat-list-option *ngFor="let conversation of conversations" [value]="conversation">
             <div class="inline-list">
-                <img src="{{conversation.participants.length < 2 ? conversation.participants[0].profilePictureThumbnailUrl : (conversation.participants[0].id === profileId ? conversation.participants[1].profilePictureThumbnailUrl : conversation.participants[0].profilePictureThumbnailUrl)}}"
-                    class="mat-card-avatar conversation-avatar" alt="">
-                <div class="conversation-name">{{conversation.name.length > 10 ? conversation.name.substring(0,10)+'...' : conversation.name}} <span *ngIf="isConversationRead(conversation)" class=" hide-text" matBadge="0" matBadgeSize="small"></span>
+                <img src="{{getImageSrcForConversation(conversation)}}" class="mat-card-avatar conversation-avatar" alt="">
+                <div class="conversation-name">{{getConversationName(conversation)}} <span *ngIf="isConversationRead(conversation)" class=" hide-text" matBadge="0" matBadgeSize="small"></span>
 
                 </div>
             </div>

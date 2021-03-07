@@ -19,9 +19,12 @@
             </div>
             <img mat-card-image src="{{imageData.imageUrl}}" alt="Photo of a Shiba Inu">
             <mat-card-content>
-                <div class="d-flex  flex-row-reverse" *ngIf="loggedIn && profileId === imageData.userProfileId">
-                    <div class="p-2">
+                <div class="d-flex  flex-row-reverse">
+                    <div class="p-2" *ngIf="loggedIn && profileId === imageData.userProfileId">
                         <i-feather matTooltip="{{'EditPhoto' | translate}}" name="edit-3" [ngStyle]="(theme==='Dark')?{color: 'white'}:{color: 'black'}" class="big-icon cursor-pointer" (click)="onEditClick()"></i-feather>
+                    </div>
+                    <div class="upload-date">
+                        {{imageData.uploadDate | uploadDate | async}}
                     </div>
                 </div>
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="expansion-panel">
@@ -33,14 +36,14 @@
                             {{cuttedDescription}}...
                         </mat-panel-description>
                     </mat-expansion-panel-header>
-                    <p class="description">{{imageData.description}}</p>
+                    <p class="description angular-with-newlines">{{imageData.description}}</p>
                     <app-image-description [imageData]=imageData></app-image-description>
 
                 </mat-expansion-panel>
 
             </mat-card-content>
             <mat-card-actions>
-                <button matTooltip="{{'Like' | translate}}" mat-icon-button color="{{isImageLiked ? 'primary' : ''}}" aria-label="Example icon-button with a heart icon" (click)="onLikeClick()">
+                <button [disabled]="!loggedIn" matTooltip="{{'Like' | translate}}" mat-icon-button color="{{isImageLiked ? 'primary' : ''}}" aria-label="Example icon-button with a heart icon" (click)="onLikeClick()">
                 <mat-icon >thumb_up</mat-icon>  +{{numberOfLikes}}
               </button>
             </mat-card-actions>

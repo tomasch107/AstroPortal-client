@@ -25,3 +25,7 @@ body {
 ::ng-deep .dialog-scroll>mat-dialog-container {
     max-height: 100vh;
 }
+
+.angular-with-newlines {
+    white-space: pre-line;
+}

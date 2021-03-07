@@ -1,0 +1,19 @@
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+        <mat-label>{{"User" | translate}}</mat-label>
+        <input matInput #nickname placeholder="{{'User' | translate}}" (input)="onInputChange(nickname.value)" autocomplete="off">
+    </mat-form-field>
+</form>
+<div *ngIf="users" class="user-list" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="false">
+    <mat-selection-list #userList [multiple]="false" (selectionChange)="onSelectionChange($event)">
+        <mat-list-option *ngFor="let user of users" [value]="user">
+            <div class="inline-list">
+                <img src={{user.profilePictureThumbnailUrl}} class="mat-card-avatar conversation-avatar" alt="">
+                <p class="conversation-name">{{user.nickname}}</p>
+            </div>
+        </mat-list-option>
+    </mat-selection-list>
+</div>
+<div class="container loader" *ngIf="loading">
+    <mat-spinner style="margin:0 auto;"></mat-spinner>
+</div>

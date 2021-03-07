@@ -44,6 +44,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { EditImageComponent } from './components/images/edit-image/edit-image.component';
 import { ChangeConversationNameComponent } from './components/messages/change-conversation-name/change-conversation-name.component';
 import { ConversationParticipantsComponent } from './components/messages/conversation-participants/conversation-participants.component';
+import { SearchUserComponent } from './components/search/search-user/search-user.component';
+import { UploadDatePipe } from './helpers/upload-date.pipe';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,9 @@ import { ConversationParticipantsComponent } from './components/messages/convers
     ImageDescriptionComponent,
     EditImageComponent,
     ChangeConversationNameComponent,
-    ConversationParticipantsComponent
+    ConversationParticipantsComponent,
+    SearchUserComponent,
+    UploadDatePipe
   ],
   imports: [
     BrowserModule,

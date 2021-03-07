@@ -135,6 +135,6 @@ export class SearchWindowComponent implements OnInit {
   onScroll() {
     var nextPage = parseInt(this.pageIndex.toString()) + parseInt('1')
     if (nextPage < this.totalPages)
-      this.onSearch(this.searchRequestData, parseInt(this.pageIndex.toString()) + parseInt('1'), this.pageSize);
+      this.onSearch(this.searchRequestData, nextPage, this.pageSize);
   }
 }

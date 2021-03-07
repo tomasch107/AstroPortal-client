@@ -32,7 +32,6 @@
     "Search": "Search",
     "SearchAnything": "Search",
     "Expand": "Expand",
-    "EditPhoto": "Edit photo",
 
     "Items per page:": "Items per page:",
     "Next page": "Next page",
@@ -46,7 +45,7 @@
     "Send": "Send",
     "Message": "Message",
     "Show conversations": "show/hide users",
-    "Dark mode": "Dark mode"
+    "Dark mode": "Dark mode",
     "name": "Name"
 
 }

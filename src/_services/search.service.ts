@@ -79,4 +79,13 @@ export class SearchService {
 
       return this.http.get<any>(API_URL + 'search/getNewestImages', { params });
   }
+
+  searchUsers(username:string, page: number, size: number){
+    let params: any = {};
+      params[`page`] = page;
+      params[`size`] = size;
+      params[`username`] = username;
+
+      return this.http.get<any>(API_URL + 'search/searchUser', { params });
+  }
 }

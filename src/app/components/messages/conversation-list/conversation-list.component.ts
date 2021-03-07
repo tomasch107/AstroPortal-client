@@ -88,4 +88,35 @@ export class ConversationListComponent implements OnInit {
     }
     return false;
   }
+
+  getImageSrcForConversation(conversation: Conversation) :string{
+    var otherProfile;
+    for (let entry of conversation.participants) {
+      if (entry.id !== this.profileId)
+      {
+        return entry.profilePictureThumbnailUrl
+      }
+    }
+    return conversation.participants[0].profilePictureThumbnailUrl;
+
+  }
+
+  getConversationName(conversation: Conversation) :string{
+    var conversationName;
+    if (conversation.participants.length === 2)
+    {
+    for (let entry of conversation.participants) {
+      if (entry.id !== this.profileId)
+      {
+        conversationName = entry.nickname
+      }
+    }
+  }
+  if (conversation.participants.length === 1)
+    conversationName = conversation.participants[0].nickname
+  if (conversation.participants.length > 2)
+      conversationName = conversation.name;
+
+    return conversationName.length > 10 ? conversationName.substring(0,10)+'...' : conversationName
+  }
 }

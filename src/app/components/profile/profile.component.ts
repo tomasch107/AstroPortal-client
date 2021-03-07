@@ -8,6 +8,11 @@ import { Observable, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { UploadProfilePictureComponent } from '../upload-profile-picture/upload-profile-picture.component';
 
+export function noWhitespaceValidator(control: FormControl) {
+  const isSpace = (control.value || '').match(/\s/g);
+  return isSpace ? {'whitespace': true} : null;
+}
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -59,9 +64,10 @@ export class ProfileComponent implements OnInit {
     );
   }
   createForm() {
+    const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
     this.formGroup = this.formBuilder.group({
       'name': [null],
-      'nickname': [null, Validators.required],
+      'nickname': [null, [Validators.required, noWhitespaceValidator]],
       'country': [null],
       'lastName': [null],
       'profileDescription': [null, Validators.maxLength(2000)]

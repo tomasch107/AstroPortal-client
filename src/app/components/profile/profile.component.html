@@ -11,10 +11,11 @@
             <div class="col-md">
                 <mat-form-field class="form-element" appearance="fill">
                     <mat-label>{{'Nickname' | translate}}</mat-label>
-                    <input matInput placeholder="{{'Nickname' | translate}}" formControlName="nickname">
+                    <input matInput placeholder="{{'Nickname' | translate}}*" formControlName="nickname">
                     <mat-error *ngIf="!formGroup.controls['nickname'].valid && formGroup.controls['nickname'].touched">
-                        {{'Required' | translate}}
+                        {{'Required' | translate}} {{'space is not allowed' | translate}}
                     </mat-error>
+                    <mat-hint>{{'Required' | translate}}</mat-hint>
                 </mat-form-field>
                 <mat-form-field class="form-element" appearance="fill">
                     <mat-label>{{'Name' | translate}}</mat-label>

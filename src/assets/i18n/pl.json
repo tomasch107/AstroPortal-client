@@ -83,6 +83,19 @@
 	"Open conversation": "Otwórz konwersację",
 	"(You)": "(Ty)",
     "Dark mode": "Tryb ciemny",
+	"Messages": "Wiadomości",
+	"User": "Użytkownik",
+	"Search users": "Wyszukaj użytkowników",
+	"Search images": "Wyszukaj zdjęcia",
+    "Search": "Szukaj",
+	"Language change": "Zmiana języka",
+	"Upload photo": "Dodaj zdjęcie",
+	"Profile": "Profil",
+	"You can only write to observed users": "Możesz napisać tylko do tych co obserwujesz",
+	"space is not allowed": "spacja nie jest dozwolona",
+
+	
+	
     "name": "Nazwa"
 
 }

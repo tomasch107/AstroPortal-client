@@ -14,6 +14,8 @@ import { ImageComponent } from './components/images/image/image.component';
 import { UserImageComponent } from './components/images/user-image/user-image.component';
 import { SearchWindowComponent } from './components/search/search-window/search-window.component';
 import { ConversationComponent } from './components/messages/conversation/conversation.component';
+import { Search } from 'angular-feather/icons';
+import { SearchUserComponent } from './components/search/search-user/search-user.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },

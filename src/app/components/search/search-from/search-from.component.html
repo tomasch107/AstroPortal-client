@@ -15,31 +15,7 @@
         </div>
     </form>
 </mat-card>
-<mat-expansion-panel class="search-expand">
-    <mat-expansion-panel-header>
-        <mat-panel-title>
-            {{'SearchByProfile' | translate}}
-        </mat-panel-title>
-        <mat-panel-description>
-            {{'Expand' | translate}}
-        </mat-panel-description>
-    </mat-expansion-panel-header>
-    <form [formGroup]="formSearchUser" (ngSubmit)="onSubmit(formSearchUser.value)" class="form">
-        <div class="row">
-            <div class="col-md">
-                <mat-form-field class="form-element">
-                    <input matInput placeholder="{{'ProfileNickname' | translate}}" formControlName="nickname">
-                    <mat-error *ngIf="!formSearchUser.controls['nickname'].valid && formSearchUser.controls['nickname'].touched">
-                        {{'Required' | translate}} {{'Maximum' | translate}} 50 {{'Chars' | translate}}
-                    </mat-error>
-                </mat-form-field>
-            </div>
-        </div>
-        <div class="form-element">
-            <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formSearchUser.valid">{{'Search' | translate}}</button>
-        </div>
-    </form>
-</mat-expansion-panel>
+
 <mat-expansion-panel class="search-expand">
     <mat-expansion-panel-header>
         <mat-panel-title>

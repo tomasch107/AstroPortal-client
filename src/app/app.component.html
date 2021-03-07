@@ -16,9 +16,21 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link pr-3" href="/search">
-                        <i-feather name="search" class="big-icon" style="color: white;"></i-feather>
-                    </a>
+                    <div class="profile-menu">
+                        <button mat-icon-button [matMenuTriggerFor]="menuSearch">
+                      <i-feather name="search" class="big-icon" style="color: white;"></i-feather>
+                    </button>
+                        <mat-menu #menuSearch="matMenu">
+                            <button mat-menu-item (click)="searchUsersClick()">
+                      <mat-icon>person_pin</mat-icon>
+                    <span >{{"Search users" | translate}}</span>
+              </button>
+                            <button mat-menu-item (click)="searchImagesClick()">
+                          <mat-icon>photo_camera</mat-icon>
+                          <span>{{"Search images" | translate}}</span>
+              </button>
+                        </mat-menu>
+                    </div>
                 </li>
                 <li class="nav-item" *ngIf="isLoggedIn">
                     <a class="nav-link pr-3" href="/uploadimage">
@@ -80,19 +92,31 @@
         <li class="nav-item" *ngIf="isLoggedIn">
             <a class="nav-link pr-3" href="/messages">
                 <i-feather name="mail" class="big-icon" style="color: white;"></i-feather>
-                <p class="menu-description"> Messages</p>
+                <p class="menu-description"> {{"Messages" | translate}}</p>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link pr-3" href="/search">
-                <i-feather name="search" class="big-icon" style="color: white;"></i-feather>
-                <p class="menu-description"> Search</p>
-            </a>
+            <div class="profile-menu">
+                <button mat-icon-button [matMenuTriggerFor]="menuSearch">
+          <i-feather name="search" class="big-icon" style="color: white;"></i-feather>
+        </button>
+                <mat-menu #menuSearch="matMenu">
+                    <button mat-menu-item (click)="searchUsersClick()">
+          <mat-icon>person_pin</mat-icon>
+        <span >{{"Search users" | translate}}</span>
+  </button>
+                    <button mat-menu-item (click)="searchImagesClick()">
+              <mat-icon>photo_camera</mat-icon>
+              <span>{{"Search images" | translate}}</span>
+  </button>
+                </mat-menu>
+                <p [matMenuTriggerFor]="menuSearch" class="menu-description cursor-pointer"> {{"Search" | translate}}</p>
+            </div>
         </li>
         <li class="nav-item" *ngIf="isLoggedIn">
             <a class="nav-link pr-3" href="/uploadimage">
                 <i-feather name="camera" class="big-icon" style="color: white;"></i-feather>
-                <p class="menu-description"> Upload photo</p>
+                <p class="menu-description"> {{"Upload photo" | translate}}</p>
             </a>
         </li>
         <li class="nav-item ">

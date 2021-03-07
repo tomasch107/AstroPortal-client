@@ -1,4 +1,5 @@
 <div *ngIf="watched | async as watched">
+    <p>{{"You can only write to observed users" | translate}}</p>
 
     <mat-selection-list #conversations>
         <mat-list-option *ngFor="let profile of watched" [value]="profile">

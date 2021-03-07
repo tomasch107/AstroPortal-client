@@ -6,6 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { LangIconValues } from './model/lang-icon-values';
 import { ThemeService } from '../_services/theme.service';
 import { ConversationService } from '../_services/conversation.service';
+import { Router } from '@angular/router';
+import { SearchUserComponent } from './components/search/search-user/search-user.component';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +33,9 @@ export class AppComponent implements OnInit {
     public translate: TranslateService,
     private renderer: Renderer2,
     private themeService: ThemeService,
-    private conversationService: ConversationService
+    private conversationService: ConversationService,
+    private router: Router,
+
   ) {
     translate.addLangs(['en', 'pl']);
     translate.setDefaultLang('en');
@@ -126,5 +130,17 @@ export class AppComponent implements OnInit {
     localStorage.setItem('theme', this.isDarkTheme ? "Dark" : "Light");
     this.themeService.setTheme(this.isDarkTheme ? "Dark" : "Light");
 
+  }
+
+  searchUsersClick(){
+    const dialogRef = this.dialog.open(SearchUserComponent, {
+      panelClass: 'dialog-scroll',
+      height: '600px',
+      width: '400px',
+    });
+  }
+
+  searchImagesClick(){
+    this.router.navigateByUrl('search');
   }
 }

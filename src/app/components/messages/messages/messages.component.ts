@@ -4,7 +4,7 @@ import { MessageService } from '../../../../_services/error-service.service';
 import { TokenStorageService } from '../../../../_services/token-storage.service';
 import { Observable, of } from 'rxjs';
 import { Message } from 'src/app/model/message';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { Conversation } from 'src/app/model/conversation';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeConversationNameComponent } from '../change-conversation-name/change-conversation-name.component';
@@ -19,6 +19,7 @@ export class MessagesComponent implements OnInit {
   @Input() conversation: Conversation;
   @Input() conversationId: number;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   conversationIdChanged=false;
   loading = false;
@@ -126,6 +127,8 @@ export class MessagesComponent implements OnInit {
       this.messageService.showError(err);
     })
     this.formGroup.reset();
+    this.formDirective.resetForm();
+
   }
 
   onScroll(){
@@ -165,5 +168,24 @@ changeConversationName(){
       if (data.id)
         this.conversationService.conversationChanged$.emit(data);
   });
+}
+
+getConversationName(conversation: Conversation) :string{
+  var conversationName;
+  if (conversation.participants.length === 2)
+  {
+  for (let entry of conversation.participants) {
+    if (entry.id !== this.profileId)
+    {
+      conversationName = entry.nickname
+    }
+  }
+}
+if (conversation.participants.length === 1)
+  conversationName = conversation.participants[0].nickname
+if (conversation.participants.length > 2)
+    conversationName = conversation.name;
+
+  return conversationName;
 }
 }

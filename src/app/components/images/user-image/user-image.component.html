@@ -1,4 +1,4 @@
-<div class="container" *ngIf="!loading">
+<div class="container angular-with-newlines" *ngIf="!loading">
 
     <mat-card class="example-card" *ngIf="userProfileData | async as userProfile">
         <mat-card-header class="header">
@@ -11,7 +11,7 @@
             </p>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button color="{{isUserWatched ? 'primary' : 'accent'}}" (click)="onWatchClick()">{{watchText | translate}}</button>
+            <button [disabled]="!loggedIn" mat-raised-button color="{{isUserWatched ? 'primary' : 'accent'}}" (click)="onWatchClick()">{{watchText | translate}}</button>
         </mat-card-actions>
     </mat-card>
 

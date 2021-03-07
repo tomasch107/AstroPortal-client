@@ -208,7 +208,7 @@ export class ImageComponent implements OnInit {
 
 
     openMapLocation(){
-      window.open('https://www.google.com/maps/search/?api=1&'+ this.imageData.location, "_blank");
+      window.open('https://www.google.com/maps/search/?q='+ this.imageData.location, "_blank");
     }
 }
 
