@@ -7,6 +7,8 @@ import { UserProfile } from 'src/app/model/user-profile';
 import { ImageData } from 'src/app/model/image-data';
 import { TokenStorageService } from '../../../../_services/token-storage.service';
 import { UserService } from '../../../../_services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { UserWatchedWatchingListComponent } from '../../profile/user-watched-watching-list/user-watched-watching-list.component';
 
 @Component({
   selector: 'app-user-image',
@@ -23,12 +25,15 @@ export class UserImageComponent implements OnInit {
   profileId: number = 0;
   isUserWatched = false;
   watchText = 'Watch';
+  watchedCount;
+  watchingCount;
   constructor(private imageService: ImagesService,
     private route: ActivatedRoute,
     private messageService: MessageService,
     private router: Router,
     private tokenStorageService: TokenStorageService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loggedIn = this.tokenStorageService.getToken() != null;
@@ -79,6 +84,7 @@ export class UserImageComponent implements OnInit {
         (data) => {
           this.userProfileData = of(data);
           this.profileId = data.id;
+          this.getWatchedWatchingCount();
         },
         (err) => {
           this.messageService.showErrorWindow(err.error.message);
@@ -94,6 +100,18 @@ export class UserImageComponent implements OnInit {
     this.router.navigateByUrl('users/' + this.username + '/' + image.id);
   }
 
+  getWatchedWatchingCount(){
+    this.userService.getWatchedWatchingCount(this.profileId).subscribe(
+      (data) => {
+          this.watchedCount = data.watchedCount;
+          this.watchingCount = data.watchingCount;
+      },
+      (err) => {
+        this.messageService.showError(err);
+      },
+    );
+  }
+
   onWatchClick(){
     var profileId: number = + this.tokenStorageService.getCurrentProfileId();
     if(this.isUserWatched)
@@ -102,6 +120,7 @@ export class UserImageComponent implements OnInit {
         (data) => {
           this.isUserWatched = false;
           this.watchText = 'Watch';
+          this.getWatchedWatchingCount();
         },
         (err) => {
           this.messageService.showError(err);
@@ -114,11 +133,33 @@ export class UserImageComponent implements OnInit {
         (data) => {
           this.isUserWatched = true;
           this.watchText = 'Watching';
+          this.getWatchedWatchingCount();
         },
         (err) => {
           this.messageService.showError(err);
         },
       );
     }
+  }
+
+  showWatched()
+  {
+    this.showWatch(true);
+  }
+  showWatching()
+  {
+    this.showWatch(false);
+  }
+
+  showWatch(watched: boolean){
+    const dialogRef = this.dialog.open(UserWatchedWatchingListComponent, {
+      panelClass: 'dialog-scroll',
+      height: '600px',
+      width: '400px',
+      data: {
+        watched: watched,
+        profileId: this.profileId
+      },
+    });
   }
 }

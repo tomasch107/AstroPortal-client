@@ -2,8 +2,21 @@
 
     <mat-card class="example-card" *ngIf="userProfileData | async as userProfile">
         <mat-card-header class="header">
+
             <img mat-card-avatar class="example-header-image" src={{userProfile.profilePictureThumbnailUrl}}>
             <mat-card-title>{{userProfile.nickname}}</mat-card-title>
+            <div class="watched-watching" *ngIf="watchedCount && watchingCount">
+                <div class="watched cursor-pointer" (click)="showWatched()">
+                    <h3>{{"Following" | translate}}</h3>
+                    <p class="watch-number">{{watchedCount}}</p>
+                </div>
+                <div class="watching cursor-pointer" (click)="showWatching()">
+                    <h3>{{"Followers" | translate}}</h3>
+                    <p class="watch-number">{{watchingCount}}</p>
+                </div>
+            </div>
+
+
         </mat-card-header>
         <mat-card-content>
             <p>

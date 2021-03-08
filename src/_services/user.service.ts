@@ -71,6 +71,29 @@ export class UserService {
   {
     return this.http.get<Array<any>>(API_URL + 'user/getWatched/' + watchingProfileId);
   }
+
+  getWatchingUsersPaging(watchedProfileId: number, page, size)
+  {
+    let params: any = {};
+    params[`page`] = page;
+    params[`size`] = size;
+    params[`userProfileId`] = watchedProfileId;
+    return this.http.get<any>(API_URL + 'images/getWatchingPaging', { params });
+  }
+
+  getWatchedUsersPaging(watchingProfileId: number, page, size)
+  {
+    let params: any = {};
+    params[`page`] = page;
+    params[`size`] = size;
+    params[`userProfileId`] = watchingProfileId;
+    return this.http.get<any>(API_URL + 'images/getWatchedPaging', { params });
+  }
+
+  getWatchedWatchingCount(profileid: number)
+  {
+    return this.http.get<any>(API_URL + 'images/getWatchedWatchingCount/' + profileid);
+  }
 }
 
 

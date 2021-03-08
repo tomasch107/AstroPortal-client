@@ -48,6 +48,7 @@ import { SearchUserComponent } from './components/search/search-user/search-user
 import { UploadDatePipe } from './helpers/upload-date.pipe';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { PhotoswipeComponent } from './components/images/photoswipe/photoswipe.component';
+import { UserWatchedWatchingListComponent } from './components/profile/user-watched-watching-list/user-watched-watching-list.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { PhotoswipeComponent } from './components/images/photoswipe/photoswipe.c
     ConversationParticipantsComponent,
     SearchUserComponent,
     UploadDatePipe,
-    PhotoswipeComponent
+    PhotoswipeComponent,
+    UserWatchedWatchingListComponent
   ],
   imports: [
     BrowserModule,
