@@ -46,6 +46,8 @@ import { ChangeConversationNameComponent } from './components/messages/change-co
 import { ConversationParticipantsComponent } from './components/messages/conversation-participants/conversation-participants.component';
 import { SearchUserComponent } from './components/search/search-user/search-user.component';
 import { UploadDatePipe } from './helpers/upload-date.pipe';
+import { NgxImageZoomModule } from 'ngx-image-zoom';
+import { PhotoswipeComponent } from './components/images/photoswipe/photoswipe.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,8 @@ import { UploadDatePipe } from './helpers/upload-date.pipe';
     ChangeConversationNameComponent,
     ConversationParticipantsComponent,
     SearchUserComponent,
-    UploadDatePipe
+    UploadDatePipe,
+    PhotoswipeComponent
   ],
   imports: [
     BrowserModule,
@@ -99,7 +102,8 @@ import { UploadDatePipe } from './helpers/upload-date.pipe';
     MaterialModule,
     NgxDropzoneModule,
     MomentModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    NgxImageZoomModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

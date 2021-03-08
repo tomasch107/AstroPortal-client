@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ImagesService } from '../../../../_services/images.service';
 import { MessageService } from '../../../../_services/error-service.service';
@@ -12,6 +12,8 @@ import { TokenStorageService } from '../../../../_services/token-storage.service
 import { ThemeService } from '../../../../_services/theme.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditImageComponent } from '../edit-image/edit-image.component';
+import { PhotoswipeComponent } from '../photoswipe/photoswipe.component';
+import { IImage } from './../../../model/iimage';
 
 @Component({
   selector: 'app-image',
@@ -19,7 +21,10 @@ import { EditImageComponent } from '../edit-image/edit-image.component';
   styleUrls: ['./image.component.scss'],
 })
 export class ImageComponent implements OnInit {
-
+  @ViewChild('photoSwipe') photoSwipe: PhotoswipeComponent;
+  @ViewChild('fullImage') fullImage: ElementRef;
+  imageWidth;
+  imageHeight;
   @Input() inputImage: ImageData;
   imageId: number;
   username;
@@ -209,6 +214,28 @@ export class ImageComponent implements OnInit {
 
     openMapLocation(){
       window.open('https://www.google.com/maps/search/?q='+ this.imageData.location, "_blank");
+    }
+
+    openSlideshow()
+    {
+      console.log('openslide')
+        const images : IImage[] = [
+            {
+                src: this.imageData.imageUrl,
+                w: this.imageWidth,
+                h: this.imageHeight
+            }
+        ];
+
+        this.photoSwipe.openGallery(images);
+    }
+
+    loadImg()
+    {
+      const img: HTMLImageElement = this.fullImage.nativeElement;
+      this.imageHeight = img.naturalHeight;
+      this.imageWidth = img.naturalWidth;
+      console.log(img);
     }
 }
 

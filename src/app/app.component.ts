@@ -52,7 +52,6 @@ export class AppComponent implements OnInit {
 
     this.conversationService.unReadConversationIdUpdate$.subscribe(data => {
       this.unReadConversationCount = this.conversationService.getUnreadConversationCount()
-      console.log('unreadCount ' , this.unReadConversationCount)
     })
     if(this.isLoggedIn)
       this.conversationService.updateUnreadConversationCount(this.profileId);

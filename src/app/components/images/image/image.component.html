@@ -17,7 +17,7 @@
                     <p class="font-weight-normal text-right location-text">{{imageData.location}}</p>
                 </div>
             </div>
-            <img mat-card-image src="{{imageData.imageUrl}}" alt="Photo of a Shiba Inu">
+            <img #fullImage mat-card-image src="{{imageData.imageUrl}}" class="main-image" alt="Photo of a Shiba Inu" (click)="openSlideshow()" (load)="loadImg($event)">
             <mat-card-content>
                 <div class="d-flex  flex-row-reverse">
                     <div class="p-2" *ngIf="loggedIn && profileId === imageData.userProfileId">
@@ -65,6 +65,7 @@
             <app-image-comment [imageId]="imageData.id" [commentAdded]="commentAdded"></app-image-comment>
         </div>
     </div>
+    <app-photoswipe #photoSwipe></app-photoswipe>
 </div>
 
 <div class="container loader" *ngIf="loading">
