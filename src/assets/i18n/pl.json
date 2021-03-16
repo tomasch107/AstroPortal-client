@@ -95,8 +95,14 @@
 	"space is not allowed": "spacja nie jest dozwolona",
 	"Following": "Obserwuje",
 	"Followers": "Obserwujący",
-	
-	
-    "name": "Nazwa"
+	"Delete photo": "Usuń zdjęcie",
+    "name": "Nazwa",
+	"Yes" : "Tak",
+	"No" : "Nie",
+	"Are you sure to delete photo?": "Czy na pewno chcesz usunąc zdjęcie?",
+	"English": "Angielski",
+	"Polish": "Polski",
+	"User profile name already exists": "Taka nazwa profilu już istnieje",
+	"Image size too large": "Zdjęcie ma za duży rozmiar"
 
 }

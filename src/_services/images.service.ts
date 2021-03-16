@@ -101,4 +101,9 @@ export class ImagesService {
   {
     return this.http.post<UserProfile>(API_URL + 'images/editImage', image);
   }
+
+  deleteImage(imageId: number, profileId: number): Observable<UserProfile>
+  {
+    return this.http.post<UserProfile>(API_URL + 'images/deleteImage/' + imageId +'/' + profileId, {});
+  }
 }

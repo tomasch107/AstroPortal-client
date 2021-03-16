@@ -5,7 +5,7 @@ import { MessageService } from '../../../../_services/error-service.service';
 import { Observable, of } from 'rxjs';
 import { ImageData } from 'src/app/model/image-data';
 import { UserProfile } from '../../../model/user-profile';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { HttpResponse } from '@angular/common/http';
 import { ImageComment } from '../../../model/image-comment';
 import { TokenStorageService } from '../../../../_services/token-storage.service';
@@ -39,6 +39,8 @@ export class ImageComponent implements OnInit {
   isImageLiked = false;
   color = 'warn'
   theme = '';
+  @ViewChild('formDirective') private formDirective: NgForm;
+
   commentAdded: EventEmitter<boolean> = new EventEmitter();
   profileId;
   constructor(
@@ -74,6 +76,7 @@ export class ImageComponent implements OnInit {
       });
     }
     this.themeService.themeChanged$.subscribe(data => {this.theme = data;});
+    this.theme = this.themeService.getTheme();
   }
   getIsImageLiked() {
     var profileId: number = + this.tokenStorageService.getCurrentProfileId();
@@ -134,7 +137,7 @@ export class ImageComponent implements OnInit {
 
   createForm() {
     this.formGroup = this.formBuilder.group({
-      commentText: [null, Validators.maxLength(1000)],
+      commentText: [null, [Validators.required, Validators.maxLength(1000)]],
     });
   }
 
@@ -148,7 +151,9 @@ export class ImageComponent implements OnInit {
       (err) => {
         this.messageService.showError(err);
       },
-      () => (this.formGroup.reset())
+      () => {this.formGroup.reset();
+        this.formDirective.resetForm();
+      }
     );
   }
 
@@ -236,6 +241,23 @@ export class ImageComponent implements OnInit {
       this.imageHeight = img.naturalHeight;
       this.imageWidth = img.naturalWidth;
       console.log(img);
+    }
+
+    onDeleteClick(){
+        this.messageService.showYesNoWindow('Are you sure to delete photo?').subscribe(data =>{
+          if(data)
+          {
+            this.loading = true;
+            this.imageService.deleteImage(this.imageData.id, this.profileId).subscribe(
+              (data) => {
+                this.router.navigateByUrl('users/' + this.imageData.userProfileNickname);
+              },
+              (err) => {
+                this.messageService.showError(err);
+              },
+            );
+          }
+        });
     }
 }
 

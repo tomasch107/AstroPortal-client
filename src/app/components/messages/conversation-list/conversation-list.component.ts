@@ -15,7 +15,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class ConversationListComponent implements OnInit {
   conversations: Conversation[];
   profileId: number;
-  selectedOptions;
+  selectedOptions: Conversation[] = new Array<Conversation>();
+  currentConversation;
+  selectedIndex;
   @Output() conversationChange = new EventEmitter<Conversation>();
   @Input() newConversation: Conversation;
 
@@ -73,6 +75,14 @@ export class ConversationListComponent implements OnInit {
           this.conversations.unshift(newConversation);
         }
         this.conversationChange.emit(newConversation);
+
+        for (var _i = 0; _i < this.conversations.length; _i++) {
+          var entry = this.conversations[_i];
+          if (entry.id === newConversation.id)
+          {
+            this.selectedIndex = _i;
+          }
+        }
     }
   }
 

@@ -2,7 +2,7 @@
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form" *ngIf="!loading;">
         <div class="row">
             <div class="col-md">
-                <ngx-dropzone (change)="onSelect($event)" [multiple]="false" accept="image/jpeg,image/jpg,image/png,image/gif" class="dropzone" [ngStyle]="getDropzoneStyle()">
+                <ngx-dropzone [maxFileSize]="10485760" (change)="onSelect($event)" [multiple]="false" accept="image/jpeg,image/jpg,image/png,image/gif" class="dropzone" [ngStyle]="getDropzoneStyle()">
                     <ngx-dropzone-label>
                         <i-feather name="camera" class="big-icon" style="color: black;"></i-feather>
                         <p style="color: black;">{{"Drop image" | translate}}</p>
@@ -11,6 +11,9 @@
                         <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                     </ngx-dropzone-image-preview>
                 </ngx-dropzone>
+                <mat-error *ngIf="fileToLargeError">
+                    {{'Image size too large' | translate}}
+                </mat-error>
                 <mat-form-field class="form-element" appearance="fill">
                     <input matInput placeholder="{{'Title' | translate}} *" formControlName="title">
                     <mat-error *ngIf="!formGroup.controls['title'].valid && formGroup.controls['title'].touched">

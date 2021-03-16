@@ -5,7 +5,7 @@
 
             <img mat-card-avatar class="example-header-image" src={{userProfile.profilePictureThumbnailUrl}}>
             <mat-card-title>{{userProfile.nickname}}</mat-card-title>
-            <div class="watched-watching" *ngIf="watchedCount && watchingCount">
+            <div class="watched-watching">
                 <div class="watched cursor-pointer" (click)="showWatched()">
                     <h3>{{"Following" | translate}}</h3>
                     <p class="watch-number">{{watchedCount}}</p>

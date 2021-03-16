@@ -77,7 +77,7 @@ export class ProfileComponent implements OnInit {
   onSubmit(post) {
     post.id = this.userProfileData.id;
     this.userService.saveUserData(post).subscribe( data =>{
-
+        this.token.saveCurrentProfileNickname(data.nickname);
     },
     err =>{
       this.messageService.showErrorWindow(err.error.message);

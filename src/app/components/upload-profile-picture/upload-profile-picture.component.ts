@@ -18,7 +18,7 @@ export class UploadProfilePictureComponent implements OnInit {
   currentFile: File;
   progress = 0;
   message = '';
-
+  loading = false;
   fileInfos: Observable<Array<ImageData>>;
   downloadUri: Observable<string>;
   imageData:   Array<ImageData>;
@@ -28,6 +28,8 @@ export class UploadProfilePictureComponent implements OnInit {
   profileId;
   fileSelected=false;
   theme='';
+  fileToLargeError=false;
+  rejectedFiles: File[] = [];
   constructor(
     private themeService: ThemeService,
     private uploadService: UploadFileService,
@@ -44,6 +46,18 @@ export class UploadProfilePictureComponent implements OnInit {
     this.files.splice(0)
     this.files.push(...event.addedFiles);
     this.fileSelected = true;
+
+    this.rejectedFiles.splice(0);
+    this.rejectedFiles = event.rejectedFiles
+    if (this.rejectedFiles.length > 0)
+    {
+      this.fileToLargeError = true;
+      this.fileSelected = false;
+    }
+    else
+    {
+      this.fileToLargeError=false;
+    }
   }
 
   onRemove(event) {
@@ -62,6 +76,7 @@ export class UploadProfilePictureComponent implements OnInit {
     this.progress = 0;
 
     this.currentFile = this.files[0];
+    this.loading = true;
     this.userProfileService.uploadProfilePicture(this.currentFile, this.profileId).subscribe(
       (event) => {
         if (event.type === HttpEventType.UploadProgress) {
@@ -70,6 +85,7 @@ export class UploadProfilePictureComponent implements OnInit {
           this.message = event.body.message;
           this.imageData = event.body;
           this.downloadUri = of(this.imageData[0].fileDownloadUri).pipe();
+          this.loading = false;
           this.dialogRef.close();
         }
       },

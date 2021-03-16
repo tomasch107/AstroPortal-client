@@ -1,6 +1,6 @@
 <div *ngIf="conversations">
-    <mat-selection-list #shoes [multiple]="false" (selectionChange)="onSelectionChange($event)" [(ngModel)]="selectedOptions">
-        <mat-list-option *ngFor="let conversation of conversations" [value]="conversation">
+    <mat-selection-list #shoes [multiple]="false" (selectionChange)="onSelectionChange($event)">
+        <mat-list-option *ngFor="let conversation of conversations, let i = index" [value]="conversation" [selected]="conversation && selectedIndex && i == selectedIndex">
             <div class="inline-list">
                 <img src="{{getImageSrcForConversation(conversation)}}" class="mat-card-avatar conversation-avatar" alt="">
                 <div class="conversation-name">{{getConversationName(conversation)}} <span *ngIf="isConversationRead(conversation)" class=" hide-text" matBadge="0" matBadgeSize="small"></span>

@@ -27,6 +27,8 @@ export class UploadImageComponent implements OnInit {
   loading = false;
   theme='';
   nickname;
+  fileToLargeError=false;
+  rejectedFiles: File[] = [];
   constructor(
     private token: TokenStorageService,
     private userService: UserService,
@@ -58,6 +60,19 @@ export class UploadImageComponent implements OnInit {
     this.files.splice(0);
     this.files.push(...event.addedFiles);
     this.fileSelected = true;
+
+
+    this.rejectedFiles.splice(0);
+    this.rejectedFiles = event.rejectedFiles
+    if (this.rejectedFiles.length > 0)
+    {
+      this.fileToLargeError = true;
+      this.fileSelected = false;
+    }
+    else
+    {
+      this.fileToLargeError=false;
+    }
   }
 
   onRemove(event) {

@@ -1,4 +1,4 @@
-<ngx-dropzone (change)="onSelect($event)" [multiple]="false" accept="image/jpeg,image/jpg,image/png,image/gif" class="dropzone" [ngStyle]="getDropzoneStyle()">
+<ngx-dropzone [maxFileSize]="10485760" *ngIf="!loading" (change)="onSelect($event)" [multiple]="false" accept="image/jpeg,image/jpg,image/png,image/gif" class="dropzone" [ngStyle]="getDropzoneStyle()">
     <ngx-dropzone-label>
         <i-feather name="user" class="big-icon" style="color: black;"></i-feather>
         <p style="color: black;">{{"Drop image" | translate}}</p>
@@ -7,8 +7,13 @@
         <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
     </ngx-dropzone-image-preview>
 </ngx-dropzone>
+<mat-error *ngIf="fileToLargeError">
+    {{'Image size too large' | translate}}
+</mat-error>
+<div class="container loader" *ngIf="loading">
+    <mat-spinner style="margin:0 auto;"></mat-spinner>
+</div>
 
-
-<button mat-raised-button class="button" type="submit" color="primary" [disabled]="!fileSelected" (click)="upload()">Upload </button>
+<button mat-raised-button class="button" type="submit" color="primary" [disabled]="!fileSelected || loading" (click)="upload()">Upload </button>
 
 <div class="alert" role="alert">{{ message }}</div>
